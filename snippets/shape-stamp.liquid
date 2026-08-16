@@ -1,0 +1,38 @@
+{% comment %}
+  Renders a decorative circular stamp/seal with curved text, for overlaying
+  editorial imagery.
+  Accepts:
+  - id: unique string used to namespace the internal curved-text path
+    (required — pass something like section.id so multiple stamps on one
+    page don't collide)
+  - text: the curved text (string, optional, default "STATIC MERCANTILE • COASTAL '91 •")
+  - class: additional CSS classes (string, optional)
+  - width, height: pixel dimensions (number, optional, default 110)
+  Color is set via the current text color (currentColor).
+{% endcomment %}
+{%- liquid
+  assign stamp_width = width | default: 110
+  assign stamp_height = height | default: 110
+  assign stamp_text = text | default: "STATIC MERCANTILE • COASTAL '91 •"
+  assign curve_id = 'shape-stamp-curve-' | append: id
+-%}
+<svg
+  class="shape shape--stamp {{ class }}"
+  width="{{ stamp_width }}"
+  height="{{ stamp_height }}"
+  viewBox="0 0 120 120"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  aria-hidden="true"
+  focusable="false"
+>
+  <defs>
+    <path id="{{ curve_id }}" d="M 60,60 m -46,0 a 46,46 0 1,1 92,0 a 46,46 0 1,1 -92,0" />
+  </defs>
+  <circle cx="60" cy="60" r="58" stroke="currentColor" stroke-width="1.5" />
+  <circle cx="60" cy="60" r="42" stroke="currentColor" stroke-width="1" />
+  <circle cx="60" cy="60" r="5" fill="currentColor" />
+  <text font-size="8.5" letter-spacing="1.5" fill="currentColor">
+    <textPath href="#{{ curve_id }}" startOffset="0%">{{ stamp_text }}</textPath>
+  </text>
+</svg>

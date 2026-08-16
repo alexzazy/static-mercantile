@@ -1,0 +1,163 @@
+{%- style -%}
+  #StaticRoast-{{ section.id }} {
+    --color-button: var(--mode-accent);
+    --color-button-text: var(--mode-bg);
+    --color-secondary-button: var(--mode-surface);
+    --color-secondary-button-text: var(--mode-bg);
+  }
+{%- endstyle -%}
+
+<div
+  id="StaticRoast-{{ section.id }}"
+  class="static-roast mode--{{ section.settings.mode }} static-roast--image-{{ section.settings.image_side }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
+>
+  <div class="static-roast__inner page-width">
+    <div class="static-roast__media">
+      {%- if section.settings.image != blank -%}
+        {{
+          section.settings.image
+          | image_url: width: 1600
+          | image_tag: class: 'static-roast__image', sizes: '(min-width: 750px) 50vw, 100vw', widths: '450, 750, 900, 1100, 1500, 1600'
+        }}
+      {%- else -%}
+        {{ 'lifestyle-2' | placeholder_svg_tag: 'static-roast__image placeholder-svg' }}
+      {%- endif -%}
+      <div class="grain-overlay" aria-hidden="true"></div>
+      {%- if section.settings.show_stamp -%}
+        <div class="static-roast__stamp" style="color: rgb(var(--mode-bg));">
+          {%- render 'shape-stamp', id: section.id -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="static-roast__text">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="static-roast__heading font-display">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.body != blank -%}
+        <div class="static-roast__body">{{ section.settings.body }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.button_label_1 != blank or section.settings.button_label_2 != blank -%}
+        <div class="static-roast__buttons">
+          {%- if section.settings.button_label_1 != blank -%}
+            <a
+              {% if section.settings.button_link_1 == blank %}
+                role="link" aria-disabled="true"
+              {% else %}
+                href="{{ section.settings.button_link_1 }}"
+              {% endif %}
+              class="button static-roast__button"
+            >
+              {{- section.settings.button_label_1 | escape -}}
+            </a>
+          {%- endif -%}
+          {%- if section.settings.button_label_2 != blank -%}
+            <a
+              {% if section.settings.button_link_2 == blank %}
+                role="link" aria-disabled="true"
+              {% else %}
+                href="{{ section.settings.button_link_2 }}"
+              {% endif %}
+              class="button button--secondary static-roast__button"
+            >
+              {{- section.settings.button_label_2 | escape -}}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Static Roast",
+  "tag": "section",
+  "class": "section section--static-roast",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "mode",
+      "label": "Mode",
+      "options": [
+        { "value": "heritage", "label": "Heritage" },
+        { "value": "broadcast", "label": "Broadcast" }
+      ],
+      "default": "heritage"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "select",
+      "id": "image_side",
+      "label": "Image side",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Static Roast"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body text",
+      "default": "<p>Smooth, familiar, and made for slow mornings.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label_1",
+      "label": "Button 1 label",
+      "default": "Shop Coastal '91"
+    },
+    {
+      "type": "url",
+      "id": "button_link_1",
+      "label": "Button 1 link"
+    },
+    {
+      "type": "text",
+      "id": "button_label_2",
+      "label": "Button 2 label",
+      "default": "Explore Coffee + Home"
+    },
+    {
+      "type": "url",
+      "id": "button_link_2",
+      "label": "Button 2 link"
+    },
+    {
+      "type": "header",
+      "content": "Decoration"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_stamp",
+      "label": "Show stamp/seal graphic",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Static Roast"
+    }
+  ]
+}
+{% endschema %}

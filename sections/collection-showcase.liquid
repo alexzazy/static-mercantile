@@ -1,0 +1,185 @@
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  #CollectionShowcase-{{ section.id }} {
+    --color-button: var(--mode-accent);
+    --color-button-text: var(--mode-bg);
+  }
+{%- endstyle -%}
+
+<div
+  id="CollectionShowcase-{{ section.id }}"
+  class="collection-showcase mode--{{ section.settings.mode }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
+>
+  {%- if section.settings.mode == 'broadcast' and section.settings.show_shapes -%}
+    <div class="decorative-shape decorative-shape--top-right" style="color: rgb(var(--mode-accent-2));">
+      {%- render 'shape-grid', width: 60, height: 60 -%}
+    </div>
+  {%- endif -%}
+
+  <div class="collection-showcase__inner page-width">
+    <div class="collection-showcase__text">
+      {%- render 'collection-badge', mode: section.settings.mode, label: section.settings.badge_label -%}
+
+      {%- if section.settings.title != blank -%}
+        <h2 class="collection-showcase__title font-display">{{ section.settings.title }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.description != blank -%}
+        <div class="collection-showcase__description">{{ section.settings.description }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.button_label != blank -%}
+        <a
+          {% if section.settings.button_link == blank %}
+            role="link" aria-disabled="true"
+          {% else %}
+            href="{{ section.settings.button_link }}"
+          {% endif %}
+          class="button collection-showcase__button"
+        >
+          {{- section.settings.button_label | escape -}}
+        </a>
+      {%- endif -%}
+    </div>
+
+    <div class="collection-showcase__grid-wrap">
+      <ul class="collection-showcase__grid grid product-grid contains-card contains-card--product" role="list">
+        {%- assign skip_card_product_styles = false -%}
+        {%- if section.settings.collection.products.size > 0 -%}
+          {%- for product in section.settings.collection.products limit: section.settings.product_count -%}
+            <li class="collection-showcase__item grid__item">
+              {%- render 'card-product',
+                card_product: product,
+                media_aspect_ratio: 'square',
+                lazy_load: true,
+                skip_styles: skip_card_product_styles,
+                section_id: section.id
+              -%}
+              <div class="collection-showcase__card-meta">
+                {%- render 'availability-line', mode: section.settings.mode -%}
+              </div>
+            </li>
+            {%- assign skip_card_product_styles = true -%}
+          {%- endfor -%}
+        {%- else -%}
+          {%- for i in (1..section.settings.product_count) -%}
+            {%- liquid
+              assign ridx = forloop.rindex
+              case ridx
+                when 5
+                  assign ridx = 1
+                when 6
+                  assign ridx = 2
+              endcase
+              assign placeholder_image = 'product-apparel-' | append: ridx
+            -%}
+            <li class="collection-showcase__item grid__item">
+              {%- render 'card-product',
+                media_aspect_ratio: 'square',
+                lazy_load: false,
+                skip_styles: skip_card_product_styles,
+                placeholder_image: placeholder_image
+              -%}
+              <div class="collection-showcase__card-meta">
+                {%- render 'availability-line', mode: section.settings.mode -%}
+              </div>
+            </li>
+            {%- assign skip_card_product_styles = true -%}
+          {%- endfor -%}
+        {%- endif -%}
+      </ul>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collection showcase",
+  "tag": "section",
+  "class": "section section--collection-showcase",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "mode",
+      "label": "Mode",
+      "options": [
+        { "value": "heritage", "label": "Heritage" },
+        { "value": "broadcast", "label": "Broadcast" }
+      ],
+      "default": "heritage"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "badge_label",
+      "label": "Badge text override",
+      "info": "Leave blank to use the mode default."
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Coastal '91 Heritage Collection"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Timeless goods rooted in the freedom, color and optimism of the early '90s.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Shop Heritage"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Products"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "product_count",
+      "min": 4,
+      "max": 6,
+      "step": 1,
+      "default": 4,
+      "label": "Products to show"
+    },
+    {
+      "type": "header",
+      "content": "Decoration"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_shapes",
+      "label": "Show decorative shapes",
+      "info": "Only shown in Broadcast mode.",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection showcase"
+    }
+  ]
+}
+{% endschema %}

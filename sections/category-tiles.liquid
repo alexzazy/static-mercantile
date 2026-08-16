@@ -1,0 +1,120 @@
+{%- style -%}
+  #CategoryTiles-{{ section.id }} .category-tiles__grid {
+    --category-tiles-columns-desktop: {{ section.settings.columns_desktop }};
+  }
+{%- endstyle -%}
+
+<div
+  id="CategoryTiles-{{ section.id }}"
+  class="category-tiles mode--{{ section.settings.mode }} category-tiles--mobile-{{ section.settings.mobile_layout }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
+>
+  <div class="category-tiles__inner page-width">
+    <ul class="category-tiles__grid" role="list">
+      {%- for block in section.blocks -%}
+        <li class="category-tiles__item" {{ block.shopify_attributes }}>
+          <a
+            {% if block.settings.link == blank %}
+              role="link" aria-disabled="true"
+            {% else %}
+              href="{{ block.settings.link }}"
+            {% endif %}
+            class="category-tiles__tile"
+          >
+            <div class="category-tiles__media">
+              {%- if block.settings.image != blank -%}
+                {{
+                  block.settings.image
+                  | image_url: width: 900
+                  | image_tag: class: 'category-tiles__image', sizes: '(min-width: 750px) 33vw, 85vw', widths: '375, 550, 750, 900'
+                }}
+              {%- else -%}
+                {%- assign placeholder_image = 'collection-apparel-' | append: forloop.index -%}
+                {{ placeholder_image | placeholder_svg_tag: 'category-tiles__image placeholder-svg' }}
+              {%- endif -%}
+              <div class="category-tiles__scrim" aria-hidden="true"></div>
+            </div>
+            <span class="category-tiles__label font-eyebrow">{{ block.settings.label | escape }}</span>
+            <span class="category-tiles__cta">Shop now</span>
+          </a>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Category tiles",
+  "tag": "section",
+  "class": "section section--category-tiles",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "mode",
+      "label": "Mode",
+      "options": [
+        { "value": "heritage", "label": "Heritage" },
+        { "value": "broadcast", "label": "Broadcast" }
+      ],
+      "default": "heritage"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Columns on desktop",
+      "min": 2,
+      "max": 3,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "select",
+      "id": "mobile_layout",
+      "label": "Mobile layout",
+      "options": [
+        { "value": "scroll", "label": "Horizontal scroll strip" },
+        { "value": "stack", "label": "Stacked, full width" }
+      ],
+      "default": "scroll"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tile",
+      "name": "Tile",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Apparel"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Category tiles",
+      "blocks": [
+        { "type": "tile", "settings": { "label": "Apparel" } },
+        { "type": "tile", "settings": { "label": "Coffee + Home" } },
+        { "type": "tile", "settings": { "label": "Accessories" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

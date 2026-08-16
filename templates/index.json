@@ -47,10 +47,78 @@
         "background_color": "#1B6B63",
         "text_color": "#F5F0E4"
       }
+    },
+    "collection_showcase": {
+      "type": "collection-showcase",
+      "settings": {
+        "mode": "heritage",
+        "badge_label": "",
+        "title": "Coastal '91 Heritage Collection",
+        "description": "<p>Timeless goods rooted in the freedom, color and optimism of the early '90s.</p>",
+        "button_label": "Shop Heritage",
+        "button_link": "shopify://collections/all",
+        "collection": "",
+        "product_count": 4,
+        "show_shapes": true
+      }
+    },
+    "static_roast": {
+      "type": "static-roast",
+      "settings": {
+        "mode": "heritage",
+        "image_side": "left",
+        "heading": "Static Roast",
+        "body": "<p>Smooth, familiar, and made for slow mornings.</p>",
+        "button_label_1": "Shop Coastal '91",
+        "button_link_1": "shopify://collections/all",
+        "button_label_2": "Explore Coffee + Home",
+        "button_link_2": "shopify://collections/all",
+        "show_stamp": true
+      }
+    },
+    "brand_story": {
+      "type": "brand-story",
+      "settings": {
+        "mode": "heritage",
+        "image_side": "left",
+        "heading_line_1": "TUNE IN.",
+        "heading_line_2": "STAY STATIC.",
+        "body": "<p>Static Mercantile creates timeless goods inspired by the color, freedom and optimism of the early '90s. Our Heritage collection keeps the signal alive, while each limited Broadcast captures a new season, place and story.</p>",
+        "button_label": "Our Story",
+        "button_link": "",
+        "show_shapes": true
+      }
+    },
+    "category_tiles": {
+      "type": "category-tiles",
+      "blocks": {
+        "tile_apparel": {
+          "type": "tile",
+          "settings": { "label": "Apparel", "link": "shopify://collections/all" }
+        },
+        "tile_coffee": {
+          "type": "tile",
+          "settings": { "label": "Coffee + Home", "link": "shopify://collections/all" }
+        },
+        "tile_accessories": {
+          "type": "tile",
+          "settings": { "label": "Accessories", "link": "shopify://collections/all" }
+        }
+      },
+      "block_order": ["tile_apparel", "tile_coffee", "tile_accessories"],
+      "settings": {
+        "mode": "heritage",
+        "columns_desktop": 3,
+        "mobile_layout": "scroll"
+      }
     }
   },
   "order": [
     "broadcast_hero",
-    "signal_marquee"
+    "signal_marquee",
+    "collection_showcase",
+    "static_roast",
+    "brand_story",
+    "category_tiles"
   ]
 }

@@ -1,0 +1,154 @@
+{%- style -%}
+  #BrandStory-{{ section.id }} {
+    --color-button: var(--mode-accent);
+    --color-button-text: var(--mode-bg);
+  }
+{%- endstyle -%}
+
+<div
+  id="BrandStory-{{ section.id }}"
+  class="brand-story mode--{{ section.settings.mode }} brand-story--image-{{ section.settings.image_side }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
+>
+  <div class="brand-story__inner page-width">
+    <div class="brand-story__media">
+      {%- if section.settings.image != blank -%}
+        {{
+          section.settings.image
+          | image_url: width: 1600
+          | image_tag: class: 'brand-story__image', sizes: '(min-width: 750px) 50vw, 100vw', widths: '450, 750, 900, 1100, 1500, 1600'
+        }}
+      {%- else -%}
+        {{ 'lifestyle-1' | placeholder_svg_tag: 'brand-story__image placeholder-svg' }}
+      {%- endif -%}
+    </div>
+
+    <div class="brand-story__text">
+      {%- if section.settings.show_shapes -%}
+        <div class="decorative-shape decorative-shape--top-right" style="color: rgb(var(--mode-accent-2));">
+          {%- render 'shape-grid', width: 44, height: 44 -%}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.heading_line_1 != blank or section.settings.heading_line_2 != blank -%}
+        <h2 class="brand-story__heading">
+          {%- if section.settings.heading_line_1 != blank -%}
+            <span class="brand-story__heading-line font-display">{{ section.settings.heading_line_1 }}</span>
+          {%- endif -%}
+          {%- if section.settings.heading_line_2 != blank -%}
+            <span class="brand-story__heading-line brand-story__heading-line--accent font-display">
+              {{- section.settings.heading_line_2 -}}
+            </span>
+            {%- if section.settings.show_shapes -%}
+              <span class="brand-story__squiggle" style="color: rgb(var(--mode-accent));" aria-hidden="true">
+                {%- render 'shape-zigzag', width: 90, height: 14 -%}
+              </span>
+            {%- endif -%}
+          {%- endif -%}
+        </h2>
+      {%- endif -%}
+
+      {%- if section.settings.body != blank -%}
+        <div class="brand-story__body">{{ section.settings.body }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.button_label != blank -%}
+        <a
+          {% if section.settings.button_link == blank %}
+            role="link" aria-disabled="true"
+          {% else %}
+            href="{{ section.settings.button_link }}"
+          {% endif %}
+          class="button brand-story__button"
+        >
+          {{- section.settings.button_label | escape -}}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Brand story",
+  "tag": "section",
+  "class": "section section--brand-story",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "mode",
+      "label": "Mode",
+      "options": [
+        { "value": "heritage", "label": "Heritage" },
+        { "value": "broadcast", "label": "Broadcast" }
+      ],
+      "default": "heritage"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "select",
+      "id": "image_side",
+      "label": "Image side",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading_line_1",
+      "label": "Heading line 1",
+      "default": "TUNE IN."
+    },
+    {
+      "type": "text",
+      "id": "heading_line_2",
+      "label": "Heading line 2 (accent color)",
+      "default": "STAY STATIC."
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body text",
+      "default": "<p>Static Mercantile creates timeless goods inspired by the color, freedom and optimism of the early '90s. Our Heritage collection keeps the signal alive, while each limited Broadcast captures a new season, place and story.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Our Story"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Decoration"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_shapes",
+      "label": "Show squiggle underline and grid shape",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand story"
+    }
+  ]
+}
+{% endschema %}
