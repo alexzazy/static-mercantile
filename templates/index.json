@@ -3,7 +3,7 @@
     "broadcast_hero": {
       "type": "broadcast-hero",
       "settings": {
-        "overlay_opacity": 45,
+        "overlay_opacity": 75,
         "badge_text": "BROADCAST 001",
         "heading_line_1": "SUMMER",
         "heading_line_2": "SIGNAL",

@@ -3779,7 +3779,13 @@ details-disclosure > details {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(180deg, rgba(var(--mode-bg), 0.1) 0%, rgba(var(--mode-bg), 0.9) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(var(--mode-bg), 0) 0%,
+    rgba(var(--mode-bg), 0.2) 30%,
+    rgba(var(--mode-bg), 0.6) 60%,
+    rgba(var(--mode-bg), 1) 100%
+  );
   pointer-events: none;
 }
 
@@ -3877,6 +3883,7 @@ details-disclosure > details {
 .signal-marquee__viewport {
   flex: 1 1 auto;
   overflow: hidden;
+  padding-left: 1.2rem;
 }
 
 .signal-marquee__track {
