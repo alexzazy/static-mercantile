@@ -1,0 +1,28 @@
+{% comment %}
+  Renders a small close/X icon.
+  Accepts:
+  - class: additional CSS classes (string, optional)
+  - width, height: pixel dimensions (number, optional, default 14)
+  Color is set via the current text color (currentColor).
+{% endcomment %}
+{%- liquid
+  assign icon_width = width | default: 14
+  assign icon_height = height | default: 14
+-%}
+<svg
+  class="icon icon-close {{ class }}"
+  width="{{ icon_width }}"
+  height="{{ icon_height }}"
+  viewBox="0 0 14 14"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  aria-hidden="true"
+  focusable="false"
+>
+  <path
+    d="M1 1l12 12M13 1L1 13"
+    stroke="currentColor"
+    stroke-width="1.5"
+    stroke-linecap="round"
+  />
+</svg>

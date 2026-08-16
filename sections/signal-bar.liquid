@@ -1,0 +1,77 @@
+{%- if section.settings.enabled and section.settings.text != blank -%}
+  <script src="{{ 'signal-bar.js' | asset_url }}" defer="defer"></script>
+
+  <signal-bar
+    id="SignalBar-{{ section.id }}"
+    class="signal-bar mode--{{ section.settings.mode }}"
+    data-id="{{ section.id }}"
+    data-dismissible="{{ section.settings.dismissible }}"
+  >
+    <div class="signal-bar__inner page-width">
+      {%- if section.settings.link != blank -%}
+        <a href="{{ section.settings.link }}" class="signal-bar__link">
+          <span class="signal-bar__text">{{ section.settings.text | escape }}</span>
+        </a>
+      {%- else -%}
+        <span class="signal-bar__text">{{ section.settings.text | escape }}</span>
+      {%- endif -%}
+
+      {%- if section.settings.dismissible -%}
+        <button type="button" class="signal-bar__close" data-signal-bar-close aria-label="Dismiss announcement">
+          {%- render 'icon-close', width: 12, height: 12 -%}
+        </button>
+      {%- endif -%}
+    </div>
+  </signal-bar>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Signal bar",
+  "class": "signal-bar-section",
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enabled",
+      "label": "Show bar",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Text",
+      "default": "TUNE IN. STAY STATIC."
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link (optional)"
+    },
+    {
+      "type": "select",
+      "id": "mode",
+      "label": "Mode",
+      "options": [
+        { "value": "heritage", "label": "Heritage" },
+        { "value": "broadcast", "label": "Broadcast" }
+      ],
+      "default": "broadcast"
+    },
+    {
+      "type": "checkbox",
+      "id": "dismissible",
+      "label": "Dismissible",
+      "info": "Adds a close button. A visitor's dismissal is remembered on their device.",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Signal bar"
+    }
+  ]
+}
+{% endschema %}

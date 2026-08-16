@@ -2,6 +2,16 @@
   "name": "t:sections.header.name",
   "type": "header",
   "sections": {
+    "signal_bar": {
+      "type": "signal-bar",
+      "settings": {
+        "enabled": true,
+        "text": "TUNE IN. STAY STATIC.",
+        "link": "",
+        "mode": "broadcast",
+        "dismissible": true
+      }
+    },
     "announcement-bar": {
       "type": "announcement-bar",
       "settings": {
@@ -48,6 +58,7 @@
     }
   },
   "order": [
+    "signal_bar",
     "announcement-bar",
     "header"
   ]

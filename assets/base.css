@@ -3943,3 +3943,61 @@ details-disclosure > details {
   font-weight: 600;
   color: rgb(var(--mode-accent));
 }
+
+/* Signal bar (sections/signal-bar.liquid) */
+signal-bar {
+  display: block;
+}
+
+.signal-bar {
+  background: rgb(var(--mode-bg));
+  color: rgb(var(--mode-fg));
+}
+
+.signal-bar__inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-block: 0.8rem;
+}
+
+.signal-bar__text {
+  font-family: var(--font-body-family);
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.signal-bar__link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.signal-bar__link:hover .signal-bar__text {
+  text-decoration: underline;
+}
+
+.signal-bar__close {
+  position: absolute;
+  right: 1.6rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 749px) {
+  .signal-bar__text {
+    padding-inline-end: 2.4rem;
+  }
+}
