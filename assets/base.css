@@ -11,6 +11,84 @@ collection-component {
   --focused-base-outline: 0.2rem solid rgba(var(--color-foreground), 0.5);
   --focused-base-outline-offset: 0.3rem;
   --focused-base-box-shadow: 0 0 0 0.3rem rgb(var(--color-background)), 0 0 0.5rem 0.4rem rgba(var(--color-foreground), 0.3);
+
+  /* Static Mercantile brand palette (overridden per-request by layout/theme.liquid from theme settings) */
+  --color-brand-cream: 245, 240, 228;
+  --color-brand-teal: 27, 107, 99;
+  --color-brand-pink: 232, 67, 126;
+  --color-brand-orange: 232, 115, 74;
+  --color-brand-ink: 26, 26, 26;
+  --color-brand-sand: 232, 223, 200;
+}
+
+/* Static Mercantile typography utilities */
+.font-display {
+  font-family: var(--font-display-family, var(--font-heading-family));
+  font-style: var(--font-display-style, normal);
+  font-weight: var(--font-display-weight, 400);
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 0.95;
+}
+
+.font-script {
+  font-family: var(--font-script-family, var(--font-heading-family));
+  font-style: var(--font-script-style, italic);
+  font-weight: var(--font-script-weight, 400);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.font-eyebrow {
+  font-family: var(--font-body-family);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 1.2rem;
+}
+
+/* Static Mercantile grain/texture overlay: layer inside a position: relative container */
+.grain-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.07;
+  mix-blend-mode: overlay;
+  background-repeat: repeat;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Static Mercantile retro decorative shapes (see snippets/shape-*.liquid) */
+.shape {
+  color: rgb(var(--color-brand-ink));
+  display: block;
+}
+
+.decorative-shape {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.decorative-shape--top-left {
+  top: 5%;
+  left: 4%;
+}
+
+.decorative-shape--top-right {
+  top: 5%;
+  right: 4%;
+}
+
+.decorative-shape--bottom-left {
+  bottom: 5%;
+  left: 4%;
+}
+
+.decorative-shape--bottom-right {
+  bottom: 5%;
+  right: 4%;
 }
 
 .product-card-wrapper .card,

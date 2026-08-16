@@ -1,0 +1,32 @@
+{% comment %}
+  Renders a decorative retro grid (graph-paper) shape.
+  Accepts:
+  - class: additional CSS classes (string, optional)
+  - width, height: pixel dimensions (number, optional, default 60)
+  Color is set via the current text color (currentColor).
+{% endcomment %}
+{%- liquid
+  assign shape_width = width | default: 60
+  assign shape_height = height | default: 60
+-%}
+<svg
+  class="shape shape--grid {{ class }}"
+  width="{{ shape_width }}"
+  height="{{ shape_height }}"
+  viewBox="0 0 60 60"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  aria-hidden="true"
+  focusable="false"
+>
+  <g stroke="currentColor" stroke-width="1.5">
+    <line x1="0" y1="10" x2="60" y2="10" />
+    <line x1="0" y1="25" x2="60" y2="25" />
+    <line x1="0" y1="40" x2="60" y2="40" />
+    <line x1="0" y1="55" x2="60" y2="55" />
+    <line x1="10" y1="0" x2="10" y2="60" />
+    <line x1="25" y1="0" x2="25" y2="60" />
+    <line x1="40" y1="0" x2="40" y2="60" />
+    <line x1="55" y1="0" x2="55" y2="60" />
+  </g>
+</svg>

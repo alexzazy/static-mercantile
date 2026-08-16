@@ -77,6 +77,8 @@
       {{ body_font_italic | font_face: font_display: 'swap' }}
       {{ body_font_bold_italic | font_face: font_display: 'swap' }}
       {{ settings.type_header_font | font_face: font_display: 'swap' }}
+      {{ settings.type_display_font | font_face: font_display: 'swap' }}
+      {{ settings.type_script_font | font_face: font_display: 'swap' }}
 
       {% for scheme in settings.color_schemes -%}
         {% assign scheme_classes = scheme_classes | append: ', .color-' | append: scheme.id %}
@@ -135,6 +137,21 @@
 
         --font-body-scale: {{ settings.body_scale | divided_by: 100.0 }};
         --font-heading-scale: {{ settings.heading_scale | times: 1.0 | divided_by: settings.body_scale }};
+
+        --font-display-family: {{ settings.type_display_font.family }}, {{ settings.type_display_font.fallback_families }};
+        --font-display-style: {{ settings.type_display_font.style }};
+        --font-display-weight: {{ settings.type_display_font.weight }};
+
+        --font-script-family: {{ settings.type_script_font.family }}, {{ settings.type_script_font.fallback_families }};
+        --font-script-style: {{ settings.type_script_font.style }};
+        --font-script-weight: {{ settings.type_script_font.weight }};
+
+        --color-brand-cream: {{ settings.brand_cream.red }}, {{ settings.brand_cream.green }}, {{ settings.brand_cream.blue }};
+        --color-brand-teal: {{ settings.brand_teal.red }}, {{ settings.brand_teal.green }}, {{ settings.brand_teal.blue }};
+        --color-brand-pink: {{ settings.brand_pink.red }}, {{ settings.brand_pink.green }}, {{ settings.brand_pink.blue }};
+        --color-brand-orange: {{ settings.brand_orange.red }}, {{ settings.brand_orange.green }}, {{ settings.brand_orange.blue }};
+        --color-brand-ink: {{ settings.brand_ink.red }}, {{ settings.brand_ink.green }}, {{ settings.brand_ink.blue }};
+        --color-brand-sand: {{ settings.brand_sand.red }}, {{ settings.brand_sand.green }}, {{ settings.brand_sand.blue }};
 
         --media-padding: {{ settings.media_padding }}px;
         --media-border-opacity: {{ settings.media_border_opacity | divided_by: 100.0 }};

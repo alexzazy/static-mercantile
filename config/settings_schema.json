@@ -147,6 +147,73 @@
     ]
   },
   {
+    "name": "Static Mercantile",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Brand palette"
+      },
+      {
+        "type": "color",
+        "id": "brand_cream",
+        "label": "Cream (page background)",
+        "default": "#F5F0E4"
+      },
+      {
+        "type": "color",
+        "id": "brand_teal",
+        "label": "Deep teal (primary)",
+        "default": "#1B6B63"
+      },
+      {
+        "type": "color",
+        "id": "brand_pink",
+        "label": "Hot pink (accent)",
+        "default": "#E8437E"
+      },
+      {
+        "type": "color",
+        "id": "brand_orange",
+        "label": "Sunset orange",
+        "default": "#E8734A"
+      },
+      {
+        "type": "color",
+        "id": "brand_ink",
+        "label": "Ink (near-black)",
+        "default": "#1A1A1A"
+      },
+      {
+        "type": "color",
+        "id": "brand_sand",
+        "label": "Warm sand (secondary surface)",
+        "default": "#E8DFC8"
+      },
+      {
+        "type": "header",
+        "content": "Brand typography"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_display_font",
+        "label": "Display font",
+        "info": "Heavy condensed uppercase headline face",
+        "default": "anton_n4"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_script_font",
+        "label": "Script accent font",
+        "info": "Retro script/italic face used for accent words inside headlines",
+        "default": "pacifico_n4"
+      },
+      {
+        "type": "paragraph",
+        "content": "Body and eyebrow/label text use the Body font set above in Typography."
+      }
+    ]
+  },
+  {
     "name": "t:settings_schema.layout.name",
     "settings": [
       {

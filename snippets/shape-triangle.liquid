@@ -1,0 +1,28 @@
+{% comment %}
+  Renders a decorative retro triangle shape.
+  Accepts:
+  - class: additional CSS classes (string, optional)
+  - width, height: pixel dimensions (number, optional, default 60)
+  - filled: render as a solid triangle instead of an outline (boolean, optional)
+  Color is set via `color`, inherited from the current text color (currentColor).
+{% endcomment %}
+{%- liquid
+  assign shape_width = width | default: 60
+  assign shape_height = height | default: 60
+-%}
+<svg
+  class="shape shape--triangle {{ class }}"
+  width="{{ shape_width }}"
+  height="{{ shape_height }}"
+  viewBox="0 0 60 60"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  aria-hidden="true"
+  focusable="false"
+>
+  {%- if filled -%}
+    <path d="M30 4 L56 52 L4 52 Z" fill="currentColor" />
+  {%- else -%}
+    <path d="M30 4 L56 52 L4 52 Z" stroke="currentColor" stroke-width="3" stroke-linejoin="round" />
+  {%- endif -%}
+</svg>

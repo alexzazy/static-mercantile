@@ -1,0 +1,29 @@
+{% comment %}
+  Renders a decorative retro zigzag/squiggle line.
+  Accepts:
+  - class: additional CSS classes (string, optional)
+  - width, height: pixel dimensions (number, optional, default 120x20)
+  Color is set via the current text color (currentColor).
+{% endcomment %}
+{%- liquid
+  assign shape_width = width | default: 120
+  assign shape_height = height | default: 20
+-%}
+<svg
+  class="shape shape--zigzag {{ class }}"
+  width="{{ shape_width }}"
+  height="{{ shape_height }}"
+  viewBox="0 0 120 20"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  aria-hidden="true"
+  focusable="false"
+>
+  <path
+    d="M0 10 L15 2 L30 18 L45 2 L60 18 L75 2 L90 18 L105 2 L120 10"
+    stroke="currentColor"
+    stroke-width="4"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>
