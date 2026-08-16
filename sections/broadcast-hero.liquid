@@ -68,7 +68,10 @@
             <span class="broadcast-hero__heading-line font-display">{{ section.settings.heading_line_1 }}</span>
           {%- endif -%}
           {%- if section.settings.heading_line_2 != blank -%}
-            <span class="broadcast-hero__heading-line broadcast-hero__heading-line--script font-script">{{ section.settings.heading_line_2 }}</span>
+            <span
+              class="broadcast-hero__heading-line broadcast-hero__heading-line--script font-script"
+              style="color: {{ section.settings.heading_line_2_color }};{% if section.settings.heading_line_2_shadow %} text-shadow: 0 0.2rem 0.6rem rgba(var(--shared-ink), 0.5);{% endif %}"
+            >{{ section.settings.heading_line_2 }}</span>
           {%- endif -%}
         </h1>
       {%- endif -%}
@@ -154,6 +157,19 @@
       "id": "heading_line_2",
       "label": "Headline line 2 (script)",
       "default": "SIGNAL"
+    },
+    {
+      "type": "color",
+      "id": "heading_line_2_color",
+      "label": "Headline line 2 color (script)",
+      "default": "#F5F0E4"
+    },
+    {
+      "type": "checkbox",
+      "id": "heading_line_2_shadow",
+      "label": "Add text shadow to headline line 2",
+      "info": "Improves legibility over light or busy backgrounds.",
+      "default": true
     },
     {
       "type": "text",

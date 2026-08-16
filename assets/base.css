@@ -3824,7 +3824,7 @@ details-disclosure > details {
 }
 
 .broadcast-hero__heading-line--script {
-  color: rgb(var(--mode-surface));
+  /* color is set inline from settings.heading_line_2_color */
   font-size: clamp(6.5rem, 11vw, 13rem);
   margin-top: -0.1em;
 }
@@ -3870,20 +3870,24 @@ details-disclosure > details {
   align-items: center;
   overflow: hidden;
   padding-block: 1.2rem;
+  padding-inline: 1.6rem;
+  gap: 1.6rem;
 }
 
 .signal-marquee__icon {
   flex: 0 0 auto;
   display: flex;
   align-items: center;
-  padding-inline: 1.6rem;
-  z-index: 1;
 }
 
 .signal-marquee__viewport {
   flex: 1 1 auto;
+  /* Without this, the flex item's automatic min-width is based on the
+     track's full (very wide) content, so it never actually shrinks to fit
+     and overflow: hidden has nothing to clip -- the track renders past its
+     allotted space and under the icons instead of being cut off cleanly. */
+  min-width: 0;
   overflow: hidden;
-  padding-left: 1.2rem;
 }
 
 .signal-marquee__track {
