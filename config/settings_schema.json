@@ -151,43 +151,112 @@
     "settings": [
       {
         "type": "header",
-        "content": "Brand palette"
+        "content": "Shared neutrals"
+      },
+      {
+        "type": "paragraph",
+        "content": "Used across both Heritage and Broadcast modes."
       },
       {
         "type": "color",
-        "id": "brand_cream",
-        "label": "Cream (page background)",
+        "id": "shared_page_cream",
+        "label": "Page cream",
         "default": "#F5F0E4"
       },
       {
         "type": "color",
-        "id": "brand_teal",
-        "label": "Deep teal (primary)",
-        "default": "#1B6B63"
-      },
-      {
-        "type": "color",
-        "id": "brand_pink",
-        "label": "Hot pink (accent)",
-        "default": "#E8437E"
-      },
-      {
-        "type": "color",
-        "id": "brand_orange",
-        "label": "Sunset orange",
-        "default": "#E8734A"
-      },
-      {
-        "type": "color",
-        "id": "brand_ink",
+        "id": "shared_ink",
         "label": "Ink (near-black)",
         "default": "#1A1A1A"
       },
       {
         "type": "color",
-        "id": "brand_sand",
-        "label": "Warm sand (secondary surface)",
-        "default": "#E8DFC8"
+        "id": "shared_warm_white",
+        "label": "Warm white",
+        "default": "#FBF8F1"
+      },
+      {
+        "type": "header",
+        "content": "Heritage palette"
+      },
+      {
+        "type": "paragraph",
+        "content": "Permanent, calm, timeless — Coastal '91 Heritage."
+      },
+      {
+        "type": "color",
+        "id": "heritage_pine",
+        "label": "Pine green",
+        "default": "#2F5233"
+      },
+      {
+        "type": "color",
+        "id": "heritage_navy",
+        "label": "Navy",
+        "default": "#1F3350"
+      },
+      {
+        "type": "color",
+        "id": "heritage_rust",
+        "label": "Rust",
+        "default": "#B5542D"
+      },
+      {
+        "type": "color",
+        "id": "heritage_cream",
+        "label": "Vintage cream",
+        "default": "#F2E9D8"
+      },
+      {
+        "type": "color",
+        "id": "heritage_sand",
+        "label": "Warm sand",
+        "default": "#E4D9BE"
+      },
+      {
+        "type": "header",
+        "content": "Broadcast palette"
+      },
+      {
+        "type": "paragraph",
+        "content": "Seasonal, loud, collectible — the active Broadcast campaign."
+      },
+      {
+        "type": "color",
+        "id": "broadcast_pink",
+        "label": "Hot pink",
+        "default": "#E8437E"
+      },
+      {
+        "type": "color",
+        "id": "broadcast_teal",
+        "label": "Teal",
+        "default": "#1B6B63"
+      },
+      {
+        "type": "color",
+        "id": "broadcast_purple",
+        "label": "Purple",
+        "default": "#6B4FA0"
+      },
+      {
+        "type": "color",
+        "id": "broadcast_yellow",
+        "label": "Signal yellow",
+        "default": "#F2C94C"
+      },
+      {
+        "type": "color",
+        "id": "broadcast_aqua",
+        "label": "Aqua",
+        "default": "#4FC3C7"
+      },
+      {
+        "type": "color",
+        "id": "broadcast_panel_dark",
+        "label": "Panel dark",
+        "info": "Near-black / deep navy used for dark Broadcast panels",
+        "default": "#12242B"
       },
       {
         "type": "header",
@@ -210,6 +279,64 @@
       {
         "type": "paragraph",
         "content": "Body and eyebrow/label text use the Body font set above in Typography."
+      },
+      {
+        "type": "header",
+        "content": "Heritage type treatment"
+      },
+      {
+        "type": "paragraph",
+        "content": "Restrained: normal tracking, sentence case by default."
+      },
+      {
+        "type": "select",
+        "id": "heritage_letter_spacing",
+        "label": "Letter-spacing",
+        "options": [
+          { "value": "tight", "label": "Tight" },
+          { "value": "normal", "label": "Normal" },
+          { "value": "wide", "label": "Wide" }
+        ],
+        "default": "normal"
+      },
+      {
+        "type": "select",
+        "id": "heritage_text_transform",
+        "label": "Text case",
+        "options": [
+          { "value": "none", "label": "As written" },
+          { "value": "uppercase", "label": "Uppercase" }
+        ],
+        "default": "none"
+      },
+      {
+        "type": "header",
+        "content": "Broadcast type treatment"
+      },
+      {
+        "type": "paragraph",
+        "content": "Tighter and louder: tight tracking, uppercase by default."
+      },
+      {
+        "type": "select",
+        "id": "broadcast_letter_spacing",
+        "label": "Letter-spacing",
+        "options": [
+          { "value": "tight", "label": "Tight" },
+          { "value": "normal", "label": "Normal" },
+          { "value": "wide", "label": "Wide" }
+        ],
+        "default": "tight"
+      },
+      {
+        "type": "select",
+        "id": "broadcast_text_transform",
+        "label": "Text case",
+        "options": [
+          { "value": "none", "label": "As written" },
+          { "value": "uppercase", "label": "Uppercase" }
+        ],
+        "default": "uppercase"
       }
     ]
   },

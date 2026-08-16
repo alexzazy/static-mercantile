@@ -1,9 +1,9 @@
 {%- style -%}
   #Broadcast-Hero-{{ section.id }} {
-    --color-button: var(--color-brand-teal);
-    --color-button-text: var(--color-brand-cream);
-    --color-secondary-button: var(--color-brand-cream);
-    --color-secondary-button-text: var(--color-brand-ink);
+    --color-button: var(--mode-surface);
+    --color-button-text: var(--mode-fg);
+    --color-secondary-button: var(--shared-page-cream);
+    --color-secondary-button-text: var(--shared-ink);
   }
 
   #Broadcast-Hero-{{ section.id }} .broadcast-hero__scrim {
@@ -22,7 +22,7 @@
 
 <div
   id="Broadcast-Hero-{{ section.id }}"
-  class="broadcast-hero{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
+  class="broadcast-hero mode--broadcast{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
 >
   <div class="broadcast-hero__media">
     {%- if section.settings.image != blank -%}
@@ -45,13 +45,13 @@
   <div class="broadcast-hero__scrim" aria-hidden="true"></div>
 
   {%- if section.settings.show_shapes -%}
-    <div class="decorative-shape decorative-shape--top-right" style="color: rgb(var(--color-brand-pink));">
+    <div class="decorative-shape decorative-shape--top-right" style="color: rgb(var(--mode-accent));">
       {%- render 'shape-triangle', width: 70, height: 70 -%}
     </div>
-    <div class="decorative-shape decorative-shape--bottom-left" style="color: rgb(var(--color-brand-pink));">
+    <div class="decorative-shape decorative-shape--bottom-left" style="color: rgb(var(--mode-accent));">
       {%- render 'shape-zigzag', width: 100, height: 18 -%}
     </div>
-    <div class="decorative-shape decorative-shape--bottom-right" style="color: rgb(var(--color-brand-orange));">
+    <div class="decorative-shape decorative-shape--bottom-right" style="color: rgb(var(--mode-accent-2));">
       {%- render 'shape-zigzag', width: 70, height: 12 -%}
     </div>
   {%- endif -%}

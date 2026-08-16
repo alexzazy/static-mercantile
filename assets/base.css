@@ -12,13 +12,50 @@ collection-component {
   --focused-base-outline-offset: 0.3rem;
   --focused-base-box-shadow: 0 0 0 0.3rem rgb(var(--color-background)), 0 0 0.5rem 0.4rem rgba(var(--color-foreground), 0.3);
 
-  /* Static Mercantile brand palette (overridden per-request by layout/theme.liquid from theme settings) */
-  --color-brand-cream: 245, 240, 228;
-  --color-brand-teal: 27, 107, 99;
-  --color-brand-pink: 232, 67, 126;
-  --color-brand-orange: 232, 115, 74;
-  --color-brand-ink: 26, 26, 26;
-  --color-brand-sand: 232, 223, 200;
+  /* Static Mercantile dual palette (overridden by layout/theme.liquid from theme settings) */
+  --shared-page-cream: 245, 240, 228;
+  --shared-ink: 26, 26, 26;
+  --shared-warm-white: 251, 248, 241;
+
+  --heritage-pine: 47, 82, 51;
+  --heritage-navy: 31, 51, 80;
+  --heritage-rust: 181, 84, 45;
+  --heritage-cream: 242, 233, 216;
+  --heritage-sand: 228, 217, 190;
+  --heritage-letter-spacing: 0em;
+  --heritage-text-transform: none;
+
+  --broadcast-pink: 232, 67, 126;
+  --broadcast-teal: 27, 107, 99;
+  --broadcast-purple: 107, 79, 160;
+  --broadcast-yellow: 242, 201, 76;
+  --broadcast-aqua: 79, 195, 199;
+  --broadcast-panel-dark: 18, 36, 43;
+  --broadcast-letter-spacing: -0.03em;
+  --broadcast-text-transform: uppercase;
+}
+
+/* Static Mercantile mode system: apply .mode--heritage or .mode--broadcast to a
+   section's root element so its content recolors and retypes wholesale via the
+   generic --mode-* variables below, without duplicating per-mode CSS. */
+.mode--heritage {
+  --mode-bg: var(--heritage-cream);
+  --mode-fg: var(--shared-ink);
+  --mode-accent: var(--heritage-pine);
+  --mode-accent-2: var(--heritage-rust);
+  --mode-surface: var(--heritage-sand);
+  --mode-letter-spacing: var(--heritage-letter-spacing);
+  --mode-text-transform: var(--heritage-text-transform);
+}
+
+.mode--broadcast {
+  --mode-bg: var(--broadcast-panel-dark);
+  --mode-fg: var(--shared-warm-white);
+  --mode-accent: var(--broadcast-pink);
+  --mode-accent-2: var(--broadcast-yellow);
+  --mode-surface: var(--broadcast-teal);
+  --mode-letter-spacing: var(--broadcast-letter-spacing);
+  --mode-text-transform: var(--broadcast-text-transform);
 }
 
 /* Static Mercantile typography utilities */
@@ -61,7 +98,7 @@ collection-component {
 
 /* Static Mercantile retro decorative shapes (see snippets/shape-*.liquid) */
 .shape {
-  color: rgb(var(--color-brand-ink));
+  color: rgb(var(--shared-ink));
   display: block;
 }
 
@@ -3742,7 +3779,7 @@ details-disclosure > details {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(180deg, rgba(var(--color-brand-ink), 0.1) 0%, rgba(var(--color-brand-ink), 0.9) 100%);
+  background: linear-gradient(180deg, rgba(var(--mode-bg), 0.1) 0%, rgba(var(--mode-bg), 0.9) 100%);
   pointer-events: none;
 }
 
@@ -3765,15 +3802,15 @@ details-disclosure > details {
   display: inline-flex;
   padding: 0.7rem 1.8rem;
   border-radius: 999px;
-  background: rgb(var(--color-brand-pink));
-  color: rgb(var(--color-brand-cream));
+  background: rgb(var(--mode-accent));
+  color: rgb(var(--mode-fg));
 }
 
 .broadcast-hero__heading {
   margin: 0;
   display: flex;
   flex-direction: column;
-  color: rgb(var(--color-brand-cream));
+  color: rgb(var(--mode-fg));
 }
 
 .broadcast-hero__heading-line {
@@ -3781,16 +3818,16 @@ details-disclosure > details {
 }
 
 .broadcast-hero__heading-line--script {
-  color: rgb(var(--color-brand-teal));
+  color: rgb(var(--mode-surface));
   font-size: clamp(6.5rem, 11vw, 13rem);
   margin-top: -0.1em;
 }
 
 .broadcast-hero__subheading {
   margin: 0;
-  color: rgb(var(--color-brand-cream));
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+  color: rgb(var(--mode-fg));
+  text-transform: var(--mode-text-transform);
+  letter-spacing: var(--mode-letter-spacing);
   font-size: 1.6rem;
   font-weight: 600;
 }

@@ -146,12 +146,49 @@
         --font-script-style: {{ settings.type_script_font.style }};
         --font-script-weight: {{ settings.type_script_font.weight }};
 
-        --color-brand-cream: {{ settings.brand_cream.red }}, {{ settings.brand_cream.green }}, {{ settings.brand_cream.blue }};
-        --color-brand-teal: {{ settings.brand_teal.red }}, {{ settings.brand_teal.green }}, {{ settings.brand_teal.blue }};
-        --color-brand-pink: {{ settings.brand_pink.red }}, {{ settings.brand_pink.green }}, {{ settings.brand_pink.blue }};
-        --color-brand-orange: {{ settings.brand_orange.red }}, {{ settings.brand_orange.green }}, {{ settings.brand_orange.blue }};
-        --color-brand-ink: {{ settings.brand_ink.red }}, {{ settings.brand_ink.green }}, {{ settings.brand_ink.blue }};
-        --color-brand-sand: {{ settings.brand_sand.red }}, {{ settings.brand_sand.green }}, {{ settings.brand_sand.blue }};
+        {% liquid
+          case settings.heritage_letter_spacing
+            when 'tight'
+              assign heritage_letter_spacing_value = '-0.02em'
+            when 'wide'
+              assign heritage_letter_spacing_value = '0.06em'
+            else
+              assign heritage_letter_spacing_value = '0em'
+          endcase
+
+          case settings.broadcast_letter_spacing
+            when 'normal'
+              assign broadcast_letter_spacing_value = '0em'
+            when 'wide'
+              assign broadcast_letter_spacing_value = '0.06em'
+            else
+              assign broadcast_letter_spacing_value = '-0.03em'
+          endcase
+        %}
+
+        /* Shared neutrals */
+        --shared-page-cream: {{ settings.shared_page_cream.red }}, {{ settings.shared_page_cream.green }}, {{ settings.shared_page_cream.blue }};
+        --shared-ink: {{ settings.shared_ink.red }}, {{ settings.shared_ink.green }}, {{ settings.shared_ink.blue }};
+        --shared-warm-white: {{ settings.shared_warm_white.red }}, {{ settings.shared_warm_white.green }}, {{ settings.shared_warm_white.blue }};
+
+        /* Heritage palette */
+        --heritage-pine: {{ settings.heritage_pine.red }}, {{ settings.heritage_pine.green }}, {{ settings.heritage_pine.blue }};
+        --heritage-navy: {{ settings.heritage_navy.red }}, {{ settings.heritage_navy.green }}, {{ settings.heritage_navy.blue }};
+        --heritage-rust: {{ settings.heritage_rust.red }}, {{ settings.heritage_rust.green }}, {{ settings.heritage_rust.blue }};
+        --heritage-cream: {{ settings.heritage_cream.red }}, {{ settings.heritage_cream.green }}, {{ settings.heritage_cream.blue }};
+        --heritage-sand: {{ settings.heritage_sand.red }}, {{ settings.heritage_sand.green }}, {{ settings.heritage_sand.blue }};
+        --heritage-letter-spacing: {{ heritage_letter_spacing_value }};
+        --heritage-text-transform: {{ settings.heritage_text_transform }};
+
+        /* Broadcast palette */
+        --broadcast-pink: {{ settings.broadcast_pink.red }}, {{ settings.broadcast_pink.green }}, {{ settings.broadcast_pink.blue }};
+        --broadcast-teal: {{ settings.broadcast_teal.red }}, {{ settings.broadcast_teal.green }}, {{ settings.broadcast_teal.blue }};
+        --broadcast-purple: {{ settings.broadcast_purple.red }}, {{ settings.broadcast_purple.green }}, {{ settings.broadcast_purple.blue }};
+        --broadcast-yellow: {{ settings.broadcast_yellow.red }}, {{ settings.broadcast_yellow.green }}, {{ settings.broadcast_yellow.blue }};
+        --broadcast-aqua: {{ settings.broadcast_aqua.red }}, {{ settings.broadcast_aqua.green }}, {{ settings.broadcast_aqua.blue }};
+        --broadcast-panel-dark: {{ settings.broadcast_panel_dark.red }}, {{ settings.broadcast_panel_dark.green }}, {{ settings.broadcast_panel_dark.blue }};
+        --broadcast-letter-spacing: {{ broadcast_letter_spacing_value }};
+        --broadcast-text-transform: {{ settings.broadcast_text_transform }};
 
         --media-padding: {{ settings.media_padding }}px;
         --media-border-opacity: {{ settings.media_border_opacity | divided_by: 100.0 }};
