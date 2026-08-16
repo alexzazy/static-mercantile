@@ -1,0 +1,99 @@
+{%- style -%}
+  #Signal-Marquee-{{ section.id }} {
+    background-color: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+  }
+
+  #Signal-Marquee-{{ section.id }} .signal-marquee__track {
+    animation-duration: {{ section.settings.scroll_speed }}s;
+  }
+{%- endstyle -%}
+
+<div id="Signal-Marquee-{{ section.id }}" class="signal-marquee">
+  <div class="signal-marquee__icon signal-marquee__icon--left" aria-hidden="true">
+    {%- render 'icon-broadcast', width: 22, height: 22 -%}
+  </div>
+
+  <div class="signal-marquee__viewport">
+    <div class="signal-marquee__track" aria-hidden="true">
+      {%- for i in (1..2) -%}
+        <div class="signal-marquee__group">
+          {%- for block in section.blocks -%}
+            {%- if block.settings.text != blank -%}
+              <span class="signal-marquee__item font-eyebrow" {{ block.shopify_attributes }}>
+                {{- block.settings.text | escape -}}
+              </span>
+              <span class="signal-marquee__dot" aria-hidden="true">&bull;</span>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+
+  <div class="signal-marquee__icon signal-marquee__icon--right" aria-hidden="true">
+    {%- render 'icon-lightning', width: 20, height: 20 -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Signal marquee",
+  "tag": "section",
+  "class": "section section--signal-marquee",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "range",
+      "id": "scroll_speed",
+      "min": 5,
+      "max": 60,
+      "step": 1,
+      "unit": "s",
+      "label": "Scroll speed (seconds per loop)",
+      "default": 22
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#1B6B63"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#F5F0E4"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Phrase",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "BROADCAST 001"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Signal marquee",
+      "blocks": [
+        { "type": "text", "settings": { "text": "BROADCAST 001" } },
+        { "type": "text", "settings": { "text": "SUMMER SIGNAL" } },
+        { "type": "text", "settings": { "text": "LIMITED TRANSMISSION" } },
+        { "type": "text", "settings": { "text": "TUNE IN" } },
+        { "type": "text", "settings": { "text": "STAY STATIC" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

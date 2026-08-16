@@ -1,0 +1,23 @@
+{% comment %}
+  Renders a small lightning bolt icon.
+  Accepts:
+  - class: additional CSS classes (string, optional)
+  - width, height: pixel dimensions (number, optional, default 24)
+  Color is set via the current text color (currentColor).
+{% endcomment %}
+{%- liquid
+  assign icon_width = width | default: 24
+  assign icon_height = height | default: 24
+-%}
+<svg
+  class="icon icon-lightning {{ class }}"
+  width="{{ icon_width }}"
+  height="{{ icon_height }}"
+  viewBox="0 0 24 24"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  aria-hidden="true"
+  focusable="false"
+>
+  <path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z" fill="currentColor" />
+</svg>

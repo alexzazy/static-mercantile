@@ -1,0 +1,29 @@
+{% comment %}
+  Renders a small broadcast/antenna icon.
+  Accepts:
+  - class: additional CSS classes (string, optional)
+  - width, height: pixel dimensions (number, optional, default 24)
+  Color is set via the current text color (currentColor).
+{% endcomment %}
+{%- liquid
+  assign icon_width = width | default: 24
+  assign icon_height = height | default: 24
+-%}
+<svg
+  class="icon icon-broadcast {{ class }}"
+  width="{{ icon_width }}"
+  height="{{ icon_height }}"
+  viewBox="0 0 24 24"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  aria-hidden="true"
+  focusable="false"
+>
+  <path
+    d="M12 8a2 2 0 1 1 0 4 2 2 0 0 1 0-4Zm0 4v10M8.5 4.5A6 6 0 0 0 6 9.5c0 1.6.6 3 1.6 4.1M15.5 4.5A6 6 0 0 1 18 9.5c0 1.6-.6 3-1.6 4.1M5 2a9 9 0 0 0-2.5 6.2c0 2.4.9 4.6 2.5 6.3M19 2a9 9 0 0 1 2.5 6.2c0 2.4-.9 4.6-2.5 6.3"
+    stroke="currentColor"
+    stroke-width="1.6"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>

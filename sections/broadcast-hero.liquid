@@ -1,0 +1,207 @@
+{%- style -%}
+  #Broadcast-Hero-{{ section.id }} {
+    --color-button: var(--color-brand-teal);
+    --color-button-text: var(--color-brand-cream);
+    --color-secondary-button: var(--color-brand-cream);
+    --color-secondary-button-text: var(--color-brand-ink);
+  }
+
+  #Broadcast-Hero-{{ section.id }} .broadcast-hero__scrim {
+    opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign full_width = '100vw'
+  assign widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
+  assign fetch_priority = 'auto'
+  if section.index == 1
+    assign fetch_priority = 'high'
+  endif
+-%}
+
+<div
+  id="Broadcast-Hero-{{ section.id }}"
+  class="broadcast-hero{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
+>
+  <div class="broadcast-hero__media">
+    {%- if section.settings.image != blank -%}
+      {{
+        section.settings.image
+        | image_url: width: 3840
+        | image_tag:
+          width: section.settings.image.width,
+          height: section.settings.image.width | divided_by: section.settings.image.aspect_ratio,
+          class: 'broadcast-hero__image',
+          sizes: full_width,
+          widths: widths,
+          fetchpriority: fetch_priority
+      }}
+    {%- else -%}
+      {{ 'hero-apparel-1' | placeholder_svg_tag: 'broadcast-hero__image placeholder-svg' }}
+    {%- endif -%}
+  </div>
+
+  <div class="broadcast-hero__scrim" aria-hidden="true"></div>
+
+  {%- if section.settings.show_shapes -%}
+    <div class="decorative-shape decorative-shape--top-right" style="color: rgb(var(--color-brand-pink));">
+      {%- render 'shape-triangle', width: 70, height: 70 -%}
+    </div>
+    <div class="decorative-shape decorative-shape--bottom-left" style="color: rgb(var(--color-brand-pink));">
+      {%- render 'shape-zigzag', width: 100, height: 18 -%}
+    </div>
+    <div class="decorative-shape decorative-shape--bottom-right" style="color: rgb(var(--color-brand-orange));">
+      {%- render 'shape-zigzag', width: 70, height: 12 -%}
+    </div>
+  {%- endif -%}
+
+  <div class="broadcast-hero__content page-width">
+    <div class="broadcast-hero__box">
+      {%- if section.settings.badge_text != blank -%}
+        <span class="broadcast-hero__badge font-eyebrow">{{ section.settings.badge_text | escape }}</span>
+      {%- endif -%}
+
+      {%- if section.settings.heading_line_1 != blank or section.settings.heading_line_2 != blank -%}
+        <h1 class="broadcast-hero__heading">
+          {%- if section.settings.heading_line_1 != blank -%}
+            <span class="broadcast-hero__heading-line font-display">{{ section.settings.heading_line_1 }}</span>
+          {%- endif -%}
+          {%- if section.settings.heading_line_2 != blank -%}
+            <span class="broadcast-hero__heading-line broadcast-hero__heading-line--script font-script">{{ section.settings.heading_line_2 }}</span>
+          {%- endif -%}
+        </h1>
+      {%- endif -%}
+
+      {%- if section.settings.subheading != blank -%}
+        <p class="broadcast-hero__subheading">{{ section.settings.subheading | escape }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.button_label_1 != blank or section.settings.button_label_2 != blank -%}
+        <div class="broadcast-hero__buttons">
+          {%- if section.settings.button_label_1 != blank -%}
+            <a
+              {% if section.settings.button_link_1 == blank %}
+                role="link" aria-disabled="true"
+              {% else %}
+                href="{{ section.settings.button_link_1 }}"
+              {% endif %}
+              class="button broadcast-hero__button"
+            >
+              {{- section.settings.button_label_1 | escape -}}
+            </a>
+          {%- endif -%}
+          {%- if section.settings.button_label_2 != blank -%}
+            <a
+              {% if section.settings.button_link_2 == blank %}
+                role="link" aria-disabled="true"
+              {% else %}
+                href="{{ section.settings.button_link_2 }}"
+              {% endif %}
+              class="button button--secondary broadcast-hero__button"
+            >
+              {{- section.settings.button_label_2 | escape -}}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Broadcast hero",
+  "tag": "section",
+  "class": "section section--broadcast-hero",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background image"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay opacity",
+      "default": 45
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge text",
+      "default": "BROADCAST 001"
+    },
+    {
+      "type": "text",
+      "id": "heading_line_1",
+      "label": "Headline line 1",
+      "default": "SUMMER"
+    },
+    {
+      "type": "text",
+      "id": "heading_line_2",
+      "label": "Headline line 2 (script)",
+      "default": "SIGNAL"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "THE STATION IS LIVE."
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "text",
+      "id": "button_label_1",
+      "label": "Button 1 label",
+      "default": "Tune Into Broadcast 001"
+    },
+    {
+      "type": "url",
+      "id": "button_link_1",
+      "label": "Button 1 link"
+    },
+    {
+      "type": "text",
+      "id": "button_label_2",
+      "label": "Button 2 label",
+      "default": "Shop The Heritage Collection"
+    },
+    {
+      "type": "url",
+      "id": "button_link_2",
+      "label": "Button 2 link"
+    },
+    {
+      "type": "header",
+      "content": "Decoration"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_shapes",
+      "label": "Show decorative shapes",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Broadcast hero"
+    }
+  ]
+}
+{% endschema %}

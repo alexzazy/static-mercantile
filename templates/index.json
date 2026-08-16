@@ -1,5 +1,51 @@
 {
   "sections": {
+    "broadcast_hero": {
+      "type": "broadcast-hero",
+      "settings": {
+        "overlay_opacity": 45,
+        "badge_text": "BROADCAST 001",
+        "heading_line_1": "SUMMER",
+        "heading_line_2": "SIGNAL",
+        "subheading": "THE STATION IS LIVE.",
+        "button_label_1": "Tune Into Broadcast 001",
+        "button_link_1": "shopify://collections/all",
+        "button_label_2": "Shop The Heritage Collection",
+        "button_link_2": "shopify://collections/all",
+        "show_shapes": true
+      }
+    },
+    "signal_marquee": {
+      "type": "signal-marquee",
+      "blocks": {
+        "phrase_1": {
+          "type": "text",
+          "settings": { "text": "BROADCAST 001" }
+        },
+        "phrase_2": {
+          "type": "text",
+          "settings": { "text": "SUMMER SIGNAL" }
+        },
+        "phrase_3": {
+          "type": "text",
+          "settings": { "text": "LIMITED TRANSMISSION" }
+        },
+        "phrase_4": {
+          "type": "text",
+          "settings": { "text": "TUNE IN" }
+        },
+        "phrase_5": {
+          "type": "text",
+          "settings": { "text": "STAY STATIC" }
+        }
+      },
+      "block_order": ["phrase_1", "phrase_2", "phrase_3", "phrase_4", "phrase_5"],
+      "settings": {
+        "scroll_speed": 22,
+        "background_color": "#1B6B63",
+        "text_color": "#F5F0E4"
+      }
+    },
     "image_banner": {
       "type": "image-banner",
       "blocks": {
@@ -69,6 +115,8 @@
     }
   },
   "order": [
+    "broadcast_hero",
+    "signal_marquee",
     "image_banner",
     "featured_collection"
   ]
