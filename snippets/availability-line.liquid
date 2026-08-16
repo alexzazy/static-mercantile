@@ -1,0 +1,23 @@
+{% comment %}
+  Renders the Heritage/Broadcast availability line.
+  Accepts:
+  - mode: 'heritage' or 'broadcast' (string, defaults to 'heritage')
+  - label: override text instead of the mode default (string, optional)
+  - class: additional CSS classes (string, optional)
+  Color is read from the generic --mode-accent variable, which resolves through
+  a .mode--heritage/.mode--broadcast ancestor (or is set directly below), never
+  hardcoded hex.
+{% endcomment %}
+{%- liquid
+  assign line_mode = mode | default: 'heritage'
+  if label != blank
+    assign line_label = label
+  elsif line_mode == 'broadcast'
+    assign line_label = 'Limited Transmission'
+  else
+    assign line_label = 'Always in Season'
+  endif
+-%}
+<span class="availability-line mode--{{ line_mode }} {{ class }}">
+  {{- line_label -}}
+</span>

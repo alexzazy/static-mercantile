@@ -1,0 +1,22 @@
+{% comment %}
+  Renders the Heritage/Broadcast collection badge pill.
+  Accepts:
+  - mode: 'heritage' or 'broadcast' (string, defaults to 'heritage')
+  - label: override text instead of the mode default (string, optional)
+  - class: additional CSS classes (string, optional)
+  Colors are read from the named mode palette variables (--heritage-*, --broadcast-*),
+  never hardcoded hex.
+{% endcomment %}
+{%- liquid
+  assign badge_mode = mode | default: 'heritage'
+  if label != blank
+    assign badge_label = label
+  elsif badge_mode == 'broadcast'
+    assign badge_label = 'Broadcast 001'
+  else
+    assign badge_label = "Coastal '91 Heritage"
+  endif
+-%}
+<span class="collection-badge collection-badge--{{ badge_mode }} font-eyebrow {{ class }}">
+  {{- badge_label -}}
+</span>

@@ -3916,3 +3916,30 @@ details-disclosure > details {
     animation: none;
   }
 }
+
+/* Collection badge (snippets/collection-badge.liquid) */
+.collection-badge {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  padding: 0.6rem 1.6rem;
+  border-radius: 999px;
+}
+
+.collection-badge--heritage {
+  background: rgb(var(--heritage-pine));
+  color: rgb(var(--heritage-cream));
+}
+
+.collection-badge--broadcast {
+  background: rgb(var(--broadcast-pink));
+  color: rgb(var(--broadcast-teal));
+}
+
+/* Availability line (snippets/availability-line.liquid) */
+.availability-line {
+  font-family: var(--font-body-family);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: rgb(var(--mode-accent));
+}
