@@ -75,7 +75,7 @@
         {%- else -%}
           {%- for i in (1..section.settings.product_count) -%}
             {%- liquid
-              assign ridx = i | modulo: 6 | plus: 1
+              assign ridx = forloop.index0 | modulo: 4 | plus: 1
               assign placeholder_image = 'product-apparel-' | append: ridx
             -%}
             <li class="collection-showcase__item">
