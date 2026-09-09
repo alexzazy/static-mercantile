@@ -31,10 +31,11 @@
                 {%- assign placeholder_image = 'collection-apparel-' | append: forloop.index -%}
                 {{ placeholder_image | placeholder_svg_tag: 'category-tiles__image placeholder-svg' }}
               {%- endif -%}
-              <div class="category-tiles__scrim" aria-hidden="true"></div>
             </div>
-            <span class="category-tiles__label font-eyebrow">{{ block.settings.label | escape }}</span>
-            <span class="category-tiles__cta">Shop now</span>
+            <div class="category-tiles__bar">
+              <span class="category-tiles__label font-eyebrow">{{ block.settings.label | escape }}</span>
+              <span class="category-tiles__cta">Shop now</span>
+            </div>
           </a>
         </li>
       {%- endfor -%}

@@ -4320,16 +4320,10 @@ signal-bar {
 
 .category-tiles__tile {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-end;
-  gap: 0.6rem;
+  display: block;
   aspect-ratio: 3 / 4;
   overflow: hidden;
   border-radius: 0.6rem;
-  padding: 2rem;
-  color: rgb(var(--shared-warm-white));
   text-decoration: none;
   transition:
     transform var(--duration-short) ease,
@@ -4356,25 +4350,24 @@ signal-bar {
   display: block;
 }
 
-.category-tiles__scrim {
+.category-tiles__bar {
   position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(var(--shared-ink), 0) 20%,
-    rgba(var(--shared-ink), 0.55) 55%,
-    rgba(var(--shared-ink), 0.92) 100%
-  );
-}
-
-.category-tiles__label,
-.category-tiles__cta {
-  position: relative;
+  left: 0;
+  right: 0;
+  bottom: 0;
   z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.4rem 1.8rem;
+  background: rgb(var(--mode-bg));
+  color: rgb(var(--mode-fg));
 }
 
 .category-tiles__cta {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
+  white-space: nowrap;
   text-decoration: underline;
 }
 
@@ -4399,6 +4392,32 @@ signal-bar {
     flex: 0 0 78%;
     scroll-snap-align: start;
   }
+}
+
+/* Footer dark panel treatment (sections/footer.liquid). Dawn's `.gradient`
+   class (applied on the same element) paints `background:
+   var(--gradient-background)`, a variable independent of --color-background,
+   so overriding just --color-background/--color-foreground left the actual
+   painted background untouched. Force the background directly and override
+   --gradient-background too, plus explicit heading colors since Dawn's own
+   h1-h6 rule sets color directly on the element (see the .mode--* heading
+   override above -- same class of bug, footer just isn't mode-scoped). */
+.footer {
+  --color-background: var(--broadcast-panel-dark);
+  --color-foreground: var(--shared-warm-white);
+  --gradient-background: rgb(var(--broadcast-panel-dark));
+  background: rgb(var(--broadcast-panel-dark)) !important;
+  color: rgb(var(--shared-warm-white));
+}
+
+.footer h1,
+.footer h2,
+.footer h3,
+.footer h4,
+.footer h5,
+.footer h6,
+.footer .footer-block__accordion-summary {
+  color: rgb(var(--shared-warm-white));
 }
 
 /* Footer link-list columns as a mobile accordion, static columns on desktop
