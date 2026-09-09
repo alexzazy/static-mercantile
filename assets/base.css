@@ -58,6 +58,27 @@ collection-component {
   --mode-text-transform: var(--broadcast-text-transform);
 }
 
+/* Dawn's own h1-h6 rule sets `color: rgb(var(--color-foreground))` directly
+   on the heading element, which beats plain inheritance from a .mode--*
+   ancestor no matter how that ancestor's color is set. Re-target headings
+   inside a mode-scoped container explicitly so they pick up --mode-fg
+   (a more specific selector still loses to an element's own inline style or
+   a still-more-specific class, e.g. an accent-colored heading line). */
+.mode--heritage h1,
+.mode--heritage h2,
+.mode--heritage h3,
+.mode--heritage h4,
+.mode--heritage h5,
+.mode--heritage h6,
+.mode--broadcast h1,
+.mode--broadcast h2,
+.mode--broadcast h3,
+.mode--broadcast h4,
+.mode--broadcast h5,
+.mode--broadcast h6 {
+  color: rgb(var(--mode-fg));
+}
+
 /* Static Mercantile typography utilities */
 .font-display {
   font-family: var(--font-display-family, var(--font-heading-family));
@@ -4072,7 +4093,7 @@ signal-bar {
 
 .collection-showcase__grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
   gap: 3rem;
   list-style: none;
   margin: 0;
@@ -4085,12 +4106,6 @@ signal-bar {
 
 .collection-showcase__card-meta {
   margin-top: 0.8rem;
-}
-
-@media screen and (max-width: 989px) {
-  .collection-showcase__grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 
 @media screen and (max-width: 749px) {
@@ -4344,7 +4359,12 @@ signal-bar {
 .category-tiles__scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(var(--shared-ink), 0) 40%, rgba(var(--shared-ink), 0.75) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(var(--shared-ink), 0) 20%,
+    rgba(var(--shared-ink), 0.55) 55%,
+    rgba(var(--shared-ink), 0.92) 100%
+  );
 }
 
 .category-tiles__label,

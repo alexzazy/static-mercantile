@@ -30,7 +30,7 @@
           | image_tag: class: 'join-frequency__image', sizes: '(min-width: 750px) 40vw, 80vw', widths: '375, 550, 750, 1000'
         }}
       {%- else -%}
-        {{ 'lifestyle-3' | placeholder_svg_tag: 'join-frequency__image placeholder-svg' }}
+        {{ 'lifestyle-2' | placeholder_svg_tag: 'join-frequency__image placeholder-svg' }}
       {%- endif -%}
     </div>
 
@@ -43,7 +43,10 @@
         <div class="join-frequency__body">{{ section.settings.body }}</div>
       {%- endif -%}
 
-      {%- form 'customer', id: 'JoinFrequencyForm-' | append: section.id, class: 'join-frequency__form newsletter-form' -%}
+      {%- liquid
+        assign join_frequency_form_id = 'JoinFrequencyForm-' | append: section.id
+      -%}
+      {%- form 'customer', id: join_frequency_form_id, class: 'join-frequency__form newsletter-form' -%}
         <input type="hidden" name="contact[tags]" value="newsletter">
         <div class="join-frequency__field-wrapper">
           <div class="field">
