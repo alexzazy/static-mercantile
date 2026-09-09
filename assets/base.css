@@ -4846,20 +4846,27 @@ signal-bar {
   opacity: 0.75;
 }
 
-.product-cross-sell {
+/* Cross-sell row (snippets/cross-sell-row.liquid, cross-sell-row-card.liquid) */
+.cross-sell-row {
   margin-top: 2.4rem;
   padding-top: 2rem;
   border-top: 0.1rem solid rgba(var(--color-foreground), 0.1);
 }
 
-.product-cross-sell__heading {
+.cross-sell-row__heading {
   font-size: 1.4rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin: 0 0 1rem;
 }
 
-.product-cross-sell__card {
+.cross-sell-row__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.6rem;
+}
+
+.cross-sell-row__card {
   display: flex;
   align-items: center;
   gap: 1.2rem;
@@ -4867,7 +4874,7 @@ signal-bar {
   color: inherit;
 }
 
-.product-cross-sell__media {
+.cross-sell-row__media {
   flex: 0 0 auto;
   width: 6.4rem;
   height: 6.4rem;
@@ -4875,25 +4882,34 @@ signal-bar {
   overflow: hidden;
 }
 
-.product-cross-sell__image,
-.product-cross-sell__media .placeholder-svg {
+.cross-sell-row__image,
+.cross-sell-row__media .placeholder-svg {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
 
-.product-cross-sell__info {
+.cross-sell-row__info {
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
 }
 
-.product-cross-sell__title {
+.cross-sell-row__title {
   font-weight: 600;
   font-size: 1.5rem;
 }
 
-.product-cross-sell__card:hover .product-cross-sell__title {
+.cross-sell-row__card:hover .cross-sell-row__title {
   text-decoration: underline;
+}
+
+/* Collection banner mode badge (sections/main-collection-banner.liquid) */
+.collection-hero__text-wrapper .collection-badge {
+  margin-bottom: 1.2rem;
+}
+
+.collection-hero__text-wrapper .archive-banner {
+  margin-top: 1.6rem;
 }

@@ -1,0 +1,38 @@
+{% comment %}
+  Renders a small cross-sell row of one or more paired products (Coffee +
+  Mug, Tee + Hat, Broadcast pairings, etc).
+
+  Accepts, in priority order:
+  - products: {Array} a manually picked list of products (e.g. from a
+    list_of_products section setting) -- shows up to 4
+  - product: {Object} a product whose
+    product.metafields.static_mercantile.cross_sell_product reference is
+    used as the single paired product
+  - heading: {String} optional, defaults to "Pairs well with"
+
+  Renders nothing if neither resolves to a product.
+
+  Usage:
+  {% render 'cross-sell-row', product: product %}
+  {% render 'cross-sell-row', products: my_products_list, heading: 'Complete the set' %}
+{% endcomment %}
+{%- liquid
+  assign cross_sell_heading = heading | default: 'Pairs well with'
+  if products == blank and product != blank
+    assign metafield_product = product.metafields.static_mercantile.cross_sell_product.value
+  endif
+-%}
+{%- if products != blank or metafield_product != blank -%}
+  <div class="cross-sell-row">
+    <h2 class="cross-sell-row__heading">{{ cross_sell_heading }}</h2>
+    <div class="cross-sell-row__list">
+      {%- if products != blank -%}
+        {%- for cross_product in products limit: 4 -%}
+          {%- render 'cross-sell-row-card', product: cross_product -%}
+        {%- endfor -%}
+      {%- else -%}
+        {%- render 'cross-sell-row-card', product: metafield_product -%}
+      {%- endif -%}
+    </div>
+  </div>
+{%- endif -%}

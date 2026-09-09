@@ -1,0 +1,29 @@
+{% comment %}
+  Renders a single small cross-sell card (image, title, price). Internal
+  helper for snippets/cross-sell-row.liquid.
+
+  Accepts:
+  - product: {Object} Product Liquid object (required)
+
+  Usage:
+  {% render 'cross-sell-row-card', product: product %}
+{% endcomment %}
+{%- if product != blank -%}
+  <a href="{{ product.url }}" class="cross-sell-row__card">
+    <div class="cross-sell-row__media">
+      {%- if product.featured_media != blank -%}
+        {{
+          product.featured_media
+          | image_url: width: 200
+          | image_tag: class: 'cross-sell-row__image', sizes: '100px', widths: '100, 150, 200'
+        }}
+      {%- else -%}
+        {{ 'product-apparel-2' | placeholder_svg_tag: 'cross-sell-row__image placeholder-svg' }}
+      {%- endif -%}
+    </div>
+    <div class="cross-sell-row__info">
+      <span class="cross-sell-row__title">{{ product.title | escape }}</span>
+      {%- render 'price', product: product, price_class: 'price--small' -%}
+    </div>
+  </a>
+{%- endif -%}

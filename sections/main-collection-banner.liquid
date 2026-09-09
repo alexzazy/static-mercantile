@@ -9,9 +9,17 @@
   }
 {%- endstyle -%}
 
-<div class="collection-hero{% if section.settings.show_collection_image and collection.image %} collection-hero--with-image{% endif %} color-{{ section.settings.color_scheme }} gradient">
+{%- liquid
+  assign collection_mode = collection.metafields.static_mercantile.mode.value
+-%}
+
+<div class="collection-hero{% if collection_mode %} mode--{{ collection_mode }}{% endif %}{% if section.settings.show_collection_image and collection.image %} collection-hero--with-image{% endif %} color-{{ section.settings.color_scheme }} gradient">
   <div class="collection-hero__inner page-width {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
     <div class="collection-hero__text-wrapper">
+      {%- if collection_mode -%}
+        {%- render 'collection-badge', mode: collection_mode -%}
+      {%- endif -%}
+
       <h1 class="collection-hero__title">
         <span class="visually-hidden">{{ 'sections.collection_template.title' | t }}: </span>
         {{- collection.title | escape -}}
@@ -19,6 +27,10 @@
 
       {%- if section.settings.show_collection_description -%}
         <div class="collection-hero__description rte">{{ collection.description }}</div>
+      {%- endif -%}
+
+      {%- if collection.handle == 'static-archive' -%}
+        {%- render 'archive-banner', force: true -%}
       {%- endif -%}
     </div>
 
