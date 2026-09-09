@@ -58,6 +58,7 @@
         "button_label": "Shop Heritage",
         "button_link": "shopify://collections/all",
         "collection": "",
+        "columns_desktop": 4,
         "product_count": 4,
         "show_shapes": true
       }
