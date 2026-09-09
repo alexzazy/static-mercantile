@@ -1,0 +1,132 @@
+{%- style -%}
+  #JournalRow-{{ section.id }} {
+    --color-button: var(--mode-accent);
+    --color-button-text: var(--mode-bg);
+  }
+{%- endstyle -%}
+
+<div
+  id="JournalRow-{{ section.id }}"
+  class="journal-row mode--{{ section.settings.mode }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
+>
+  <div class="journal-row__inner page-width">
+    <div class="journal-row__header">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="journal-row__heading font-display">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.button_label != blank -%}
+        <a
+          href="{{ section.settings.button_link | default: section.settings.blog.url }}"
+          class="button button--secondary journal-row__button"
+        >
+          {{- section.settings.button_label | escape -}}
+        </a>
+      {%- endif -%}
+    </div>
+
+    <ul class="journal-row__grid" role="list">
+      {%- if section.settings.blog != blank and section.settings.blog.articles_count > 0 -%}
+        {%- for article in section.settings.blog.articles limit: section.settings.post_count -%}
+          {%- assign category = article.tags.first -%}
+          <li class="journal-row__item">
+            <a href="{{ article.url }}" class="journal-row__card">
+              <div class="journal-row__media">
+                {%- if article.image != blank -%}
+                  {{
+                    article.image
+                    | image_url: width: 700
+                    | image_tag: class: 'journal-row__image', sizes: '(min-width: 750px) 33vw, 85vw', widths: '375, 550, 700'
+                  }}
+                {%- else -%}
+                  {%- assign placeholder_image = 'lifestyle-' | append: forloop.index -%}
+                  {{ placeholder_image | placeholder_svg_tag: 'journal-row__image placeholder-svg' }}
+                {%- endif -%}
+              </div>
+              {%- if category != blank -%}
+                <span class="journal-row__category font-eyebrow" style="color: rgb(var(--mode-accent));">
+                  {{- category -}}
+                </span>
+              {%- endif -%}
+              <h3 class="journal-row__title">{{ article.title | escape }}</h3>
+              <span class="journal-row__read-more">Read More &rarr;</span>
+            </a>
+          </li>
+        {%- endfor -%}
+      {%- else -%}
+        {%- for i in (1..section.settings.post_count) -%}
+          {%- assign placeholder_image = 'lifestyle-' | append: forloop.index -%}
+          <li class="journal-row__item">
+            <div class="journal-row__card">
+              <div class="journal-row__media">
+                {{ placeholder_image | placeholder_svg_tag: 'journal-row__image placeholder-svg' }}
+              </div>
+              <span class="journal-row__category font-eyebrow" style="color: rgb(var(--mode-accent));">Journal</span>
+              <h3 class="journal-row__title">Coming soon from the journal</h3>
+              <span class="journal-row__read-more">Read More &rarr;</span>
+            </div>
+          </li>
+        {%- endfor -%}
+      {%- endif -%}
+    </ul>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Journal row",
+  "tag": "section",
+  "class": "section section--journal-row",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "mode",
+      "label": "Mode",
+      "options": [
+        { "value": "heritage", "label": "Heritage" },
+        { "value": "broadcast", "label": "Broadcast" }
+      ],
+      "default": "heritage"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "From The Journal"
+    },
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Blog"
+    },
+    {
+      "type": "range",
+      "id": "post_count",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3,
+      "label": "Posts to show"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "View All Articles"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link",
+      "info": "Leave blank to link to the selected blog."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Journal row"
+    }
+  ]
+}
+{% endschema %}

@@ -111,6 +111,27 @@
         "columns_desktop": 3,
         "mobile_layout": "scroll"
       }
+    },
+    "journal_row": {
+      "type": "journal-row",
+      "settings": {
+        "mode": "heritage",
+        "heading": "From The Journal",
+        "blog": "",
+        "post_count": 3,
+        "button_label": "View All Articles",
+        "button_link": ""
+      }
+    },
+    "join_frequency": {
+      "type": "join-frequency",
+      "settings": {
+        "mode": "broadcast",
+        "heading": "Join The Frequency",
+        "body": "<p>Receive upcoming Broadcast schedules, early access, stories, and occasional transmissions.</p>",
+        "button_label": "Tune In",
+        "show_shapes": true
+      }
     }
   },
   "order": [
@@ -119,7 +140,9 @@
     "collection_showcase",
     "static_roast",
     "brand_story",
-    "category_tiles"
+    "category_tiles",
+    "journal_row",
+    "join_frequency"
   ]
 }
 

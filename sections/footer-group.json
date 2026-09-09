@@ -4,12 +4,47 @@
   "sections": {
     "footer": {
       "type": "footer",
-      "blocks": {},
-      "block_order": [],
+      "blocks": {
+        "brand": {
+          "type": "brand_information",
+          "settings": {
+            "show_social": true
+          }
+        },
+        "shop": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Shop",
+            "menu": ""
+          }
+        },
+        "about": {
+          "type": "link_list",
+          "settings": {
+            "heading": "About",
+            "menu": ""
+          }
+        },
+        "customer_care": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Customer Care",
+            "menu": ""
+          }
+        },
+        "legal": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Legal",
+            "menu": ""
+          }
+        }
+      },
+      "block_order": ["brand", "shop", "about", "customer_care", "legal"],
       "settings": {
         "color_scheme": "scheme-1",
         "newsletter_enable": true,
-        "newsletter_heading": "Subscribe to our emails",
+        "newsletter_heading": "Join The Frequency",
         "enable_follow_on_shop": true,
         "show_social": true,
         "enable_country_selector": true,

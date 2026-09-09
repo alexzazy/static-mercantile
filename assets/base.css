@@ -4380,3 +4380,268 @@ signal-bar {
     scroll-snap-align: start;
   }
 }
+
+/* Footer link-list columns as a mobile accordion, static columns on desktop
+   (sections/footer.liquid, the 'link_list' block). Native <details>/<summary>
+   drives the mobile toggle with no JS; the desktop media query below forces
+   the content open and disables the toggle so it reads as a plain column. */
+.footer-block__accordion {
+  border: 0;
+}
+
+.footer-block__accordion-summary {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  list-style: none;
+}
+
+.footer-block__accordion-summary::-webkit-details-marker {
+  display: none;
+}
+
+.footer-block__accordion-summary::after {
+  content: '+';
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.footer-block__accordion[open] > .footer-block__accordion-summary::after {
+  content: '\2212';
+}
+
+@media screen and (min-width: 750px) {
+  .footer-block__accordion-summary {
+    cursor: default;
+    pointer-events: none;
+  }
+
+  .footer-block__accordion-summary::after {
+    display: none;
+  }
+
+  .footer-block__accordion .footer-block__details-content {
+    display: block !important;
+  }
+}
+
+/* Journal row (sections/journal-row.liquid) */
+.journal-row {
+  padding-block: 6rem;
+  background: rgb(var(--mode-bg));
+  color: rgb(var(--mode-fg));
+}
+
+.journal-row__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.journal-row__heading {
+  margin: 0;
+  font-size: clamp(2.8rem, 4vw, 4rem);
+}
+
+.journal-row__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.journal-row__card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.journal-row__media {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 0.6rem;
+}
+
+.journal-row__image,
+.journal-row__media .placeholder-svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.journal-row__category {
+  font-size: 1.1rem;
+}
+
+.journal-row__title {
+  margin: 0;
+  font-size: 1.9rem;
+}
+
+.journal-row__read-more {
+  font-size: 1.3rem;
+  text-decoration: underline;
+}
+
+.journal-row__card:hover .journal-row__title {
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 989px) {
+  .journal-row__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .journal-row {
+    padding-block: 4rem;
+  }
+
+  .journal-row__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.2rem;
+  }
+
+  .journal-row__grid {
+    display: flex;
+    grid-template-columns: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 1.6rem;
+    padding-bottom: 1rem;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .journal-row__item {
+    flex: 0 0 78%;
+    scroll-snap-align: start;
+  }
+}
+
+/* Join the frequency (sections/join-frequency.liquid) */
+.join-frequency {
+  position: relative;
+  overflow: hidden;
+  padding-block: 6rem;
+  background: rgb(var(--mode-bg));
+  color: rgb(var(--mode-fg));
+}
+
+.join-frequency__inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+}
+
+.join-frequency__media {
+  flex: 0 1 40%;
+  display: flex;
+  justify-content: center;
+  margin-left: -4rem;
+}
+
+.join-frequency__image,
+.join-frequency__media .placeholder-svg {
+  width: 100%;
+  max-width: 42rem;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.join-frequency__text {
+  flex: 1 1 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.6rem;
+}
+
+.join-frequency__heading {
+  margin: 0;
+  font-size: clamp(3.2rem, 5vw, 5rem);
+}
+
+.join-frequency__body {
+  font-size: 1.6rem;
+}
+
+.join-frequency__body p {
+  margin: 0;
+}
+
+.join-frequency__field-wrapper {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  max-width: 46rem;
+}
+
+.join-frequency__field-wrapper .field {
+  display: flex;
+  gap: 1rem;
+  flex: 1 1 auto;
+  position: relative;
+}
+
+.join-frequency__field-wrapper .field__input {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 0 1.6rem;
+  border: 0.1rem solid rgba(var(--mode-fg), 0.3);
+  background: rgb(var(--mode-bg));
+  color: rgb(var(--mode-fg));
+  border-radius: 0.4rem;
+  height: 4.8rem;
+}
+
+.join-frequency__field-wrapper .field__label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.join-frequency__submit {
+  flex: 0 0 auto;
+}
+
+.join-frequency .newsletter-form__message {
+  margin-top: 0.8rem;
+  font-size: 1.3rem;
+}
+
+@media screen and (max-width: 749px) {
+  .join-frequency {
+    padding-block: 4rem;
+  }
+
+  .join-frequency__inner {
+    flex-direction: column;
+    gap: 2.4rem;
+  }
+
+  .join-frequency__media {
+    margin-left: 0;
+    flex: 1 1 auto;
+  }
+
+  .join-frequency__field-wrapper,
+  .join-frequency__field-wrapper .field {
+    flex-direction: column;
+  }
+}
