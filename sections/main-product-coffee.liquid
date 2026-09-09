@@ -76,18 +76,26 @@
 
             {%- render 'archive-banner', product: product -%}
 
-            {%- if section.settings.roast_level != blank or section.settings.tasting_notes != blank -%}
+            {%- liquid
+              assign roast_level = product.metafields.static_mercantile.roast_level.value
+              assign tasting_notes = product.metafields.static_mercantile.tasting_notes.value
+              assign brewing_suggestions = product.metafields.static_mercantile.brewing_suggestions.value
+              assign freshness_note = product.metafields.static_mercantile.freshness_note.value
+              assign cross_sell_product = product.metafields.static_mercantile.cross_sell_product.value
+            -%}
+
+            {%- if roast_level != blank or tasting_notes != blank or section.settings.size_note != blank -%}
               <div class="product-roast-info">
-                {%- if section.settings.roast_level != blank -%}
+                {%- if roast_level != blank -%}
                   <div class="product-roast-info__row">
                     <span class="product-roast-info__label font-eyebrow">Roast level</span>
-                    <span class="product-roast-info__value">{{ section.settings.roast_level }}</span>
+                    <span class="product-roast-info__value">{{ roast_level }}</span>
                   </div>
                 {%- endif -%}
-                {%- if section.settings.tasting_notes != blank -%}
+                {%- if tasting_notes != blank -%}
                   <div class="product-roast-info__row">
                     <span class="product-roast-info__label font-eyebrow">Tasting notes</span>
-                    <span class="product-roast-info__value">{{ section.settings.tasting_notes }}</span>
+                    <span class="product-roast-info__value">{{ tasting_notes }}</span>
                   </div>
                 {%- endif -%}
                 {%- if section.settings.size_note != blank -%}
@@ -113,23 +121,22 @@
               -%}
             {%- endunless -%}
 
-            {%- if section.settings.brewing_suggestions != blank -%}
+            {%- if brewing_suggestions != blank -%}
               <div class="product-brewing-suggestions">
                 <h2 class="product-brewing-suggestions__heading">Brewing suggestions</h2>
-                <div class="rte">{{ section.settings.brewing_suggestions }}</div>
+                <div class="rte">{{ brewing_suggestions }}</div>
               </div>
             {%- endif -%}
 
-            {%- if section.settings.freshness_note != blank -%}
-              <div class="product-freshness-note rte">{{ section.settings.freshness_note }}</div>
+            {%- if freshness_note != blank -%}
+              <div class="product-freshness-note rte">{{ freshness_note }}</div>
             {%- endif -%}
 
             {%- render 'fulfillment-notice', product: product -%}
 
             {%- render 'product-story-accordion', product: product -%}
 
-            {%- if section.settings.cross_sell_product != blank -%}
-              {%- assign cross_sell_product = section.settings.cross_sell_product -%}
+            {%- if cross_sell_product != blank -%}
               <div class="product-cross-sell">
                 <h2 class="product-cross-sell__heading">
                   {{ section.settings.cross_sell_heading | default: 'Pairs well with' }}
@@ -191,46 +198,19 @@
     },
     {
       "type": "header",
-      "content": "Roast details"
-    },
-    {
-      "type": "text",
-      "id": "roast_level",
-      "label": "Roast level",
-      "default": "Medium Roast"
-    },
-    {
-      "type": "text",
-      "id": "tasting_notes",
-      "label": "Tasting notes",
-      "default": "Chocolate, caramel, citrus"
+      "content": "Roast details",
+      "info": "Roast level, tasting notes, brewing suggestions, freshness note, and cross-sell product are read from product metafields (namespace static_mercantile) so they can vary per coffee SKU."
     },
     {
       "type": "text",
       "id": "size_note",
       "label": "Size note",
-      "default": "12 oz bag"
-    },
-    {
-      "type": "richtext",
-      "id": "brewing_suggestions",
-      "label": "Brewing suggestions"
-    },
-    {
-      "type": "richtext",
-      "id": "freshness_note",
-      "label": "Freshness note",
-      "default": "<p>Roasted to order. For peak flavor, enjoy within 4 weeks of the roast date.</p>"
+      "default": "12 oz bag",
+      "info": "Stays a template setting since every coffee SKU currently ships in the same size."
     },
     {
       "type": "header",
       "content": "Cross-sell"
-    },
-    {
-      "type": "product",
-      "id": "cross_sell_product",
-      "label": "Cross-sell product",
-      "info": "Typically a mug."
     },
     {
       "type": "text",

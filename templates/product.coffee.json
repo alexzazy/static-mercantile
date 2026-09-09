@@ -5,11 +5,7 @@
       "settings": {
         "enable_sticky_info": true,
         "color_scheme": "scheme-1",
-        "roast_level": "Medium Roast",
-        "tasting_notes": "Chocolate, caramel, citrus",
         "size_note": "12 oz bag",
-        "brewing_suggestions": "<p>Pour over: 1:16 coffee-to-water ratio, water just off the boil, 3-4 minute bloom and pour.</p>",
-        "freshness_note": "<p>Roasted to order. For peak flavor, enjoy within 4 weeks of the roast date.</p>",
         "cross_sell_heading": "Pairs well with",
         "media_size": "large",
         "constrain_to_viewport": true,

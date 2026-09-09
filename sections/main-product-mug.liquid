@@ -103,8 +103,8 @@
 
             {%- render 'product-story-accordion', product: product -%}
 
-            {%- if section.settings.cross_sell_product != blank -%}
-              {%- assign cross_sell_product = section.settings.cross_sell_product -%}
+            {%- assign cross_sell_product = product.metafields.static_mercantile.cross_sell_product.value -%}
+            {%- if cross_sell_product != blank -%}
               <div class="product-cross-sell">
                 <h2 class="product-cross-sell__heading">
                   {{ section.settings.cross_sell_heading | default: 'Pairs well with' }}
@@ -177,13 +177,8 @@
     },
     {
       "type": "header",
-      "content": "Cross-sell"
-    },
-    {
-      "type": "product",
-      "id": "cross_sell_product",
-      "label": "Cross-sell product",
-      "info": "Typically a coffee."
+      "content": "Cross-sell",
+      "info": "Cross-sell product is read from a product metafield (static_mercantile.cross_sell_product) so it can vary per mug."
     },
     {
       "type": "text",
