@@ -1,0 +1,29 @@
+{% comment %}
+  Renders the fulfillment-method notice on a product page.
+
+  Accepts:
+  - product: {Object} Product Liquid object (required, unless
+    fulfillment_type is passed directly)
+  - fulfillment_type: 'printful' or 'static' (string, optional) -- overrides
+    reading the metafield, useful for previewing both states
+
+  Reads product.metafields.static_mercantile.fulfillment_type
+  (single_line_text_field, allowed values "printful" or "static") when
+  fulfillment_type isn't passed explicitly. Renders nothing if neither
+  resolves to a known value.
+
+  Usage:
+  {% render 'fulfillment-notice', product: product %}
+{% endcomment %}
+{%- liquid
+  assign notice_type = fulfillment_type | default: product.metafields.static_mercantile.fulfillment_type.value
+-%}
+{%- if notice_type == 'printful' -%}
+  <div class="fulfillment-notice fulfillment-notice--printful">
+    <p>Made to order. Please allow 2&ndash;5 business days for production before your order ships.</p>
+  </div>
+{%- elsif notice_type == 'static' -%}
+  <div class="fulfillment-notice fulfillment-notice--static">
+    <p>Ships directly from Static Mercantile.</p>
+  </div>
+{%- endif -%}

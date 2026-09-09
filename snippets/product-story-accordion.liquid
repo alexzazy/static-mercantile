@@ -1,0 +1,64 @@
+{% comment %}
+  Renders collapsible product story rows (fit note, materials, care,
+  decoration details) sourced from product metafields, so each row is
+  optional and editable per product without touching the template.
+
+  Accepts:
+  - product: {Object} Product Liquid object (required)
+  - open_mode: 'single' or 'multi' (string, optional, defaults to 'single')
+    -- 'single' groups the rows with the native <details name="..."> so
+    opening one closes the others; 'multi' lets every row stay open
+    independently. Browsers that don't yet support <details name> just
+    behave like 'multi'.
+
+  Metafields read (namespace: static_mercantile, all multi_line_text_field):
+  - fit_note
+  - materials
+  - care_instructions
+  - decoration_details
+  A row only renders when its metafield has a value.
+
+  Usage:
+  {% render 'product-story-accordion', product: product %}
+{% endcomment %}
+{%- liquid
+  assign open_mode = open_mode | default: 'single'
+  assign group_name = 'product-story-' | append: product.id
+-%}
+<div class="product-story-accordion">
+  {%- if product.metafields.static_mercantile.fit_note.value != blank -%}
+    <details class="product-story-accordion__row" {% if open_mode == 'single' %}name="{{ group_name }}"{% endif %}>
+      <summary class="product-story-accordion__summary">Fit note</summary>
+      <div class="product-story-accordion__content rte">
+        {{ product.metafields.static_mercantile.fit_note.value }}
+      </div>
+    </details>
+  {%- endif -%}
+
+  {%- if product.metafields.static_mercantile.materials.value != blank -%}
+    <details class="product-story-accordion__row" {% if open_mode == 'single' %}name="{{ group_name }}"{% endif %}>
+      <summary class="product-story-accordion__summary">Materials</summary>
+      <div class="product-story-accordion__content rte">
+        {{ product.metafields.static_mercantile.materials.value }}
+      </div>
+    </details>
+  {%- endif -%}
+
+  {%- if product.metafields.static_mercantile.care_instructions.value != blank -%}
+    <details class="product-story-accordion__row" {% if open_mode == 'single' %}name="{{ group_name }}"{% endif %}>
+      <summary class="product-story-accordion__summary">Care</summary>
+      <div class="product-story-accordion__content rte">
+        {{ product.metafields.static_mercantile.care_instructions.value }}
+      </div>
+    </details>
+  {%- endif -%}
+
+  {%- if product.metafields.static_mercantile.decoration_details.value != blank -%}
+    <details class="product-story-accordion__row" {% if open_mode == 'single' %}name="{{ group_name }}"{% endif %}>
+      <summary class="product-story-accordion__summary">Decoration details</summary>
+      <div class="product-story-accordion__content rte">
+        {{ product.metafields.static_mercantile.decoration_details.value }}
+      </div>
+    </details>
+  {%- endif -%}
+</div>

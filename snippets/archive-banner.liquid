@@ -1,0 +1,23 @@
+{% comment %}
+  Renders the "Transmission Ended" banner for archived Broadcast products.
+  This is the visual notice only -- product templates that render it should
+  also check the same condition to disable Add to Cart / variant selection,
+  per the bible's "disable purchasing, keep the page visible" rule.
+
+  Accepts:
+  - product: {Object} Product Liquid object (required)
+
+  Renders when product.tags contains 'transmission-ended'.
+
+  Usage:
+  {% render 'archive-banner', product: product %}
+{% endcomment %}
+{%- if product.tags contains 'transmission-ended' -%}
+  <div class="archive-banner">
+    <span class="archive-banner__label font-eyebrow">Transmission Ended</span>
+    <p class="archive-banner__text">
+      This Broadcast has ended and is no longer available for purchase. {{ product.title }} remains here in the Static
+      Archive.
+    </p>
+  </div>
+{%- endif -%}
