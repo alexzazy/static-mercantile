@@ -4797,3 +4797,103 @@ signal-bar {
   margin: 0;
   font-size: 1.4rem;
 }
+
+/* Product pages (sections/main-product-apparel|coffee|mug.liquid) */
+.product-static__availability {
+  display: block;
+  margin: 0.6rem 0 1.6rem;
+}
+
+.product-roast-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1.4rem 0;
+  margin-bottom: 1.6rem;
+  border-top: 0.1rem solid rgba(var(--color-foreground), 0.1);
+  border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.1);
+}
+
+.product-roast-info__row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.product-roast-info__label {
+  flex: 0 0 auto;
+  min-width: 12rem;
+}
+
+.product-roast-info__value {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.product-brewing-suggestions {
+  margin-top: 1.6rem;
+}
+
+.product-brewing-suggestions__heading {
+  font-size: 1.6rem;
+  margin: 0 0 0.6rem;
+}
+
+.product-freshness-note {
+  margin-top: 1rem;
+  font-size: 1.3rem;
+  opacity: 0.75;
+}
+
+.product-cross-sell {
+  margin-top: 2.4rem;
+  padding-top: 2rem;
+  border-top: 0.1rem solid rgba(var(--color-foreground), 0.1);
+}
+
+.product-cross-sell__heading {
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0 0 1rem;
+}
+
+.product-cross-sell__card {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.product-cross-sell__media {
+  flex: 0 0 auto;
+  width: 6.4rem;
+  height: 6.4rem;
+  border-radius: 0.4rem;
+  overflow: hidden;
+}
+
+.product-cross-sell__image,
+.product-cross-sell__media .placeholder-svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.product-cross-sell__info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.product-cross-sell__title {
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.product-cross-sell__card:hover .product-cross-sell__title {
+  text-decoration: underline;
+}

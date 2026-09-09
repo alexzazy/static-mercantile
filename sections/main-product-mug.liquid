@@ -1,0 +1,308 @@
+<product-info
+  id="MainProduct-{{ section.id }}"
+  class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}"
+  data-section="{{ section.id }}"
+  data-product-id="{{ product.id }}"
+  data-update-url="true"
+  data-url="{{ product.url }}"
+  {% if section.settings.image_zoom == 'hover' %}
+    data-zoom-on-hover
+  {% endif %}
+>
+  {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
+  {{ 'component-price.css' | asset_url | stylesheet_tag }}
+  {{ 'component-slider.css' | asset_url | stylesheet_tag }}
+  {{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
+
+  {% unless product.has_only_default_variant %}
+    {{ 'component-product-variant-picker.css' | asset_url | stylesheet_tag }}
+    {{ 'component-swatch-input.css' | asset_url | stylesheet_tag }}
+    {{ 'component-swatch.css' | asset_url | stylesheet_tag }}
+  {% endunless %}
+
+  {%- style -%}
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    }
+
+    @media screen and (min-width: 750px) {
+      .section-{{ section.id }}-padding {
+        padding-top: {{ section.settings.padding_top }}px;
+        padding-bottom: {{ section.settings.padding_bottom }}px;
+      }
+    }
+  {%- endstyle -%}
+
+  <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+  {% if section.settings.image_zoom == 'hover' %}
+    <script id="EnableZoomOnHover-main" src="{{ 'magnify.js' | asset_url }}" defer="defer"></script>
+  {% endif %}
+  {%- if request.design_mode -%}
+    <script src="{{ 'theme-editor.js' | asset_url }}" defer="defer"></script>
+  {%- endif -%}
+
+  {%- liquid
+    assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src'
+    assign product_form_id = 'product-form-' | append: section.id
+
+    assign product_mode = 'heritage'
+    if product.tags contains 'broadcast-001'
+      assign product_mode = 'broadcast'
+    endif
+
+    assign is_archived = false
+    if product.tags contains 'transmission-ended'
+      assign is_archived = true
+    endif
+  -%}
+
+  <product-component view-event-payload="{{ product | standard_event_data: 'view', context: 'page' | escape }}">
+    <div class="page-width">
+      <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
+        <div class="grid__item product__media-wrapper">
+          {% render 'product-media-gallery', variant_images: variant_images %}
+        </div>
+        <div class="product__info-wrapper grid__item{% if section.settings.enable_sticky_info %} product__column-sticky{% endif %}">
+          <section id="ProductInfo-{{ section.id }}" class="product__info-container mode--{{ product_mode }}">
+            {%- render 'collection-badge', mode: product_mode -%}
+
+            <div class="product__title">
+              <h1>{{ product.title | escape }}</h1>
+            </div>
+
+            {%- render 'availability-line', mode: product_mode, class: 'product-static__availability' -%}
+
+            {%- render 'archive-banner', product: product -%}
+
+            {%- if section.settings.capacity != blank -%}
+              <div class="product-roast-info">
+                <div class="product-roast-info__row">
+                  <span class="product-roast-info__label font-eyebrow">Capacity</span>
+                  <span class="product-roast-info__value">{{ section.settings.capacity }}</span>
+                </div>
+              </div>
+            {%- endif -%}
+
+            <div id="price-{{ section.id }}" role="status">
+              {%- render 'price', product: product, use_variant: true, show_badges: true, price_class: 'price--large' -%}
+            </div>
+
+            {%- unless is_archived -%}
+              {% render 'product-variant-picker', product: product, product_form_id: product_form_id %}
+              {%- render 'buy-buttons',
+                product: product,
+                product_form_id: product_form_id,
+                section_id: section.id,
+                show_pickup_availability: false
+              -%}
+            {%- endunless -%}
+
+            {%- render 'fulfillment-notice', product: product -%}
+
+            {%- render 'product-story-accordion', product: product -%}
+
+            {%- if section.settings.cross_sell_product != blank -%}
+              {%- assign cross_sell_product = section.settings.cross_sell_product -%}
+              <div class="product-cross-sell">
+                <h2 class="product-cross-sell__heading">
+                  {{ section.settings.cross_sell_heading | default: 'Pairs well with' }}
+                </h2>
+                <a href="{{ cross_sell_product.url }}" class="product-cross-sell__card">
+                  <div class="product-cross-sell__media">
+                    {%- if cross_sell_product.featured_media != blank -%}
+                      {{
+                        cross_sell_product.featured_media
+                        | image_url: width: 200
+                        | image_tag: class: 'product-cross-sell__image', sizes: '100px', widths: '100, 150, 200'
+                      }}
+                    {%- else -%}
+                      {{ 'product-apparel-2' | placeholder_svg_tag: 'product-cross-sell__image placeholder-svg' }}
+                    {%- endif -%}
+                  </div>
+                  <div class="product-cross-sell__info">
+                    <span class="product-cross-sell__title">{{ cross_sell_product.title | escape }}</span>
+                    {%- render 'price', product: cross_sell_product, price_class: 'price--small' -%}
+                  </div>
+                </a>
+              </div>
+            {%- endif -%}
+          </section>
+        </div>
+      </div>
+
+      {% render 'product-media-modal', variant_images: variant_images %}
+
+      {%- if product.media.size > 0 -%}
+        <script src="{{ 'product-modal.js' | asset_url }}" defer="defer"></script>
+        <script src="{{ 'media-gallery.js' | asset_url }}" defer="defer"></script>
+      {%- endif -%}
+
+      <script type="application/ld+json">
+        {{ product | structured_data }}
+      </script>
+    </div>
+  </product-component>
+</product-info>
+
+{% schema %}
+{
+  "name": "Main product - Mug",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_sticky_info",
+      "default": true,
+      "label": "Enable sticky content on desktop"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Mug details"
+    },
+    {
+      "type": "text",
+      "id": "capacity",
+      "label": "Capacity",
+      "default": "10-12 oz",
+      "info": "Material and care come from the product story accordion below (materials/care_instructions metafields)."
+    },
+    {
+      "type": "header",
+      "content": "Cross-sell"
+    },
+    {
+      "type": "product",
+      "id": "cross_sell_product",
+      "label": "Cross-sell product",
+      "info": "Typically a coffee."
+    },
+    {
+      "type": "text",
+      "id": "cross_sell_heading",
+      "label": "Cross-sell heading",
+      "default": "Pairs well with"
+    },
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "select",
+      "id": "media_size",
+      "options": [
+        { "value": "small", "label": "Small" },
+        { "value": "medium", "label": "Medium" },
+        { "value": "large", "label": "Large" }
+      ],
+      "default": "large",
+      "label": "Media size"
+    },
+    {
+      "type": "checkbox",
+      "id": "constrain_to_viewport",
+      "default": true,
+      "label": "Constrain media to screen height"
+    },
+    {
+      "type": "select",
+      "id": "media_fit",
+      "options": [
+        { "value": "contain", "label": "Original" },
+        { "value": "cover", "label": "Fill" }
+      ],
+      "default": "contain",
+      "label": "Media fit"
+    },
+    {
+      "type": "select",
+      "id": "gallery_layout",
+      "options": [
+        { "value": "stacked", "label": "Stacked" },
+        { "value": "columns", "label": "2 columns" },
+        { "value": "thumbnail", "label": "Thumbnails" },
+        { "value": "thumbnail_slider", "label": "Thumbnail carousel" }
+      ],
+      "default": "thumbnail",
+      "label": "Desktop layout",
+      "info": "Thumbnails work well for showing wrap-art detail shots alongside the main image."
+    },
+    {
+      "type": "select",
+      "id": "mobile_thumbnails",
+      "options": [
+        { "value": "columns", "label": "2 columns" },
+        { "value": "show", "label": "Show thumbnails" },
+        { "value": "hide", "label": "Hide thumbnails" }
+      ],
+      "default": "show",
+      "label": "Mobile layout"
+    },
+    {
+      "type": "select",
+      "id": "media_position",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left",
+      "label": "Desktop media position"
+    },
+    {
+      "type": "select",
+      "id": "image_zoom",
+      "options": [
+        { "value": "lightbox", "label": "Open lightbox" },
+        { "value": "hover", "label": "Zoom on hover" },
+        { "value": "none", "label": "No zoom" }
+      ],
+      "default": "lightbox",
+      "label": "Image zoom"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_variants",
+      "default": true,
+      "label": "Hide other variants' media after selecting a variant"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_video_looping",
+      "default": false,
+      "label": "Enable video looping"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 36
+    }
+  ]
+}
+{% endschema %}

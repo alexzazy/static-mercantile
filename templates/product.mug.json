@@ -1,0 +1,25 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product-mug",
+      "settings": {
+        "enable_sticky_info": true,
+        "color_scheme": "scheme-1",
+        "capacity": "10-12 oz",
+        "cross_sell_heading": "Pairs well with",
+        "media_size": "large",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "thumbnail",
+        "mobile_thumbnails": "show",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": true,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": ["main"]
+}
