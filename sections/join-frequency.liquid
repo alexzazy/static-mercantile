@@ -7,7 +7,7 @@
 
 <div
   id="JoinFrequency-{{ section.id }}"
-  class="join-frequency mode--{{ section.settings.mode }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
+  class="join-frequency mode--{{ section.settings.mode }}{% if section.settings.image == blank %} join-frequency--no-image{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
 >
   {%- if section.settings.show_shapes -%}
     <div class="decorative-shape decorative-shape--top-left" style="color: rgb(var(--mode-accent-2));">
@@ -22,17 +22,20 @@
   {%- endif -%}
 
   <div class="join-frequency__inner page-width">
-    <div class="join-frequency__media">
-      {%- if section.settings.image != blank -%}
+    {%- comment -%}
+      The image here is meant to be a transparent cutout that bleeds off the panel
+      edge. A stand-in placeholder box reads as a missing asset rather than a
+      design, so until there is real artwork the text simply takes the full width.
+    {%- endcomment -%}
+    {%- if section.settings.image != blank -%}
+      <div class="join-frequency__media">
         {{
           section.settings.image
           | image_url: width: 1000
           | image_tag: class: 'join-frequency__image', sizes: '(min-width: 750px) 40vw, 80vw', widths: '375, 550, 750, 1000'
         }}
-      {%- else -%}
-        {{ 'lifestyle-2' | placeholder_svg_tag: 'join-frequency__image placeholder-svg' }}
-      {%- endif -%}
-    </div>
+      </div>
+    {%- endif -%}
 
     <div class="join-frequency__text">
       {%- if section.settings.heading != blank -%}

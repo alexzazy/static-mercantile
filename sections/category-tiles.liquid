@@ -28,7 +28,8 @@
                   | image_tag: class: 'category-tiles__image', sizes: '(min-width: 750px) 33vw, 85vw', widths: '375, 550, 750, 900'
                 }}
               {%- else -%}
-                {%- assign placeholder_image = 'collection-apparel-' | append: forloop.index -%}
+                {%- assign placeholder_image_index = forloop.index0 | modulo: 4 | plus: 1 -%}
+                {%- assign placeholder_image = 'collection-apparel-' | append: placeholder_image_index -%}
                 {{ placeholder_image | placeholder_svg_tag: 'category-tiles__image placeholder-svg' }}
               {%- endif -%}
             </div>
@@ -67,9 +68,9 @@
       "id": "columns_desktop",
       "label": "Columns on desktop",
       "min": 1,
-      "max": 3,
+      "max": 4,
       "step": 1,
-      "default": 3
+      "default": 4
     },
     {
       "type": "select",
@@ -86,7 +87,7 @@
     {
       "type": "tile",
       "name": "Tile",
-      "limit": 3,
+      "limit": 4,
       "settings": [
         {
           "type": "image_picker",
@@ -113,7 +114,8 @@
       "blocks": [
         { "type": "tile", "settings": { "label": "Apparel" } },
         { "type": "tile", "settings": { "label": "Coffee + Home" } },
-        { "type": "tile", "settings": { "label": "Accessories" } }
+        { "type": "tile", "settings": { "label": "Accessories" } },
+        { "type": "tile", "settings": { "label": "Latest Broadcast" } }
       ]
     }
   ]

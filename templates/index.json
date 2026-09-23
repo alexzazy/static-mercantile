@@ -11,9 +11,9 @@
         "heading_line_2_shadow": true,
         "subheading": "THE STATION IS LIVE.",
         "button_label_1": "Tune Into Broadcast 001",
-        "button_link_1": "shopify://collections/all",
+        "button_link_1": "shopify://collections/broadcast-001",
         "button_label_2": "Shop The Heritage Collection",
-        "button_link_2": "shopify://collections/all",
+        "button_link_2": "shopify://collections/coastal-91-heritage",
         "show_shapes": true
       }
     },
@@ -56,8 +56,8 @@
         "title": "Coastal '91 Heritage Collection",
         "description": "<p>Timeless goods rooted in the freedom, color and optimism of the early '90s.</p>",
         "button_label": "Shop Heritage",
-        "button_link": "shopify://collections/all",
-        "collection": "",
+        "button_link": "shopify://collections/coastal-91-heritage",
+        "collection": "coastal-91-heritage",
         "columns_desktop": 4,
         "product_count": 4,
         "show_shapes": true
@@ -71,9 +71,9 @@
         "heading": "Static Roast",
         "body": "<p>Smooth, familiar, and made for slow mornings.</p>",
         "button_label_1": "Shop Coastal '91",
-        "button_link_1": "shopify://collections/all",
+        "button_link_1": "shopify://collections/coastal-91-heritage",
         "button_label_2": "Explore Coffee + Home",
-        "button_link_2": "shopify://collections/all",
+        "button_link_2": "shopify://collections/coffee-home",
         "show_stamp": true
       }
     },
@@ -95,21 +95,25 @@
       "blocks": {
         "tile_apparel": {
           "type": "tile",
-          "settings": { "label": "Apparel", "link": "shopify://collections/all" }
+          "settings": { "label": "Apparel", "link": "shopify://collections/apparel" }
         },
         "tile_coffee": {
           "type": "tile",
-          "settings": { "label": "Coffee + Home", "link": "shopify://collections/all" }
+          "settings": { "label": "Coffee + Home", "link": "shopify://collections/coffee-home" }
         },
         "tile_accessories": {
           "type": "tile",
-          "settings": { "label": "Accessories", "link": "shopify://collections/all" }
+          "settings": { "label": "Accessories", "link": "shopify://collections/accessories" }
+        },
+        "tile_broadcast": {
+          "type": "tile",
+          "settings": { "label": "Latest Broadcast", "link": "shopify://collections/broadcast-001" }
         }
       },
-      "block_order": ["tile_apparel", "tile_coffee", "tile_accessories"],
+      "block_order": ["tile_apparel", "tile_coffee", "tile_accessories", "tile_broadcast"],
       "settings": {
         "mode": "heritage",
-        "columns_desktop": 3,
+        "columns_desktop": 4,
         "mobile_layout": "scroll"
       }
     },
@@ -118,7 +122,7 @@
       "settings": {
         "mode": "heritage",
         "heading": "From The Journal",
-        "blog": "",
+        "blog": "news",
         "post_count": 3,
         "button_label": "View All Articles",
         "button_link": ""

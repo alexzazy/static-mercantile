@@ -14,9 +14,24 @@
       {%- if section.settings.heading != blank -%}
         <h2 class="journal-row__heading font-display">{{ section.settings.heading }}</h2>
       {%- endif -%}
+      {%- liquid
+        comment
+          With no blog picked (and none created yet) blog.url is nil, which would
+          render href="" -- a link back to the current page. Fall back to Dawn's
+          disabled-link treatment instead, same as every other section here.
+        endcomment
+        assign journal_button_url = section.settings.button_link
+        if journal_button_url == blank
+          assign journal_button_url = section.settings.blog.url
+        endif
+      -%}
       {%- if section.settings.button_label != blank -%}
         <a
-          href="{{ section.settings.button_link | default: section.settings.blog.url }}"
+          {% if journal_button_url == blank %}
+            role="link" aria-disabled="true"
+          {% else %}
+            href="{{ journal_button_url }}"
+          {% endif %}
           class="button button--secondary journal-row__button"
         >
           {{- section.settings.button_label | escape -}}

@@ -6,9 +6,11 @@
     --color-secondary-button-text: var(--shared-ink);
   }
 
-  #Broadcast-Hero-{{ section.id }} .broadcast-hero__scrim {
-    opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
-  }
+  {%- if section.settings.image != blank -%}
+    #Broadcast-Hero-{{ section.id }} .broadcast-hero__scrim {
+      opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    }
+  {%- endif -%}
 {%- endstyle -%}
 
 {%- liquid
@@ -22,7 +24,7 @@
 
 <div
   id="Broadcast-Hero-{{ section.id }}"
-  class="broadcast-hero mode--broadcast{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
+  class="broadcast-hero mode--broadcast{% if section.settings.image == blank %} broadcast-hero--no-image{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
 >
   <div class="broadcast-hero__media">
     {%- if section.settings.image != blank -%}
@@ -38,7 +40,12 @@
           fetchpriority: fetch_priority
       }}
     {%- else -%}
-      {{ 'hero-apparel-1' | placeholder_svg_tag: 'broadcast-hero__image placeholder-svg' }}
+      {%- comment -%}
+        No photography yet (Stage 6). Rather than drop in a grey placeholder image,
+        leave the media layer empty -- .broadcast-hero--no-image paints a branded
+        Broadcast gradient behind it, so the unfinished state reads as intentional.
+      {%- endcomment -%}
+      <div class="grain-overlay" aria-hidden="true"></div>
     {%- endif -%}
   </div>
 
@@ -134,6 +141,7 @@
       "step": 5,
       "unit": "%",
       "label": "Overlay opacity",
+      "info": "Only applies when a background image is set. With no image the section paints a Broadcast gradient instead.",
       "default": 75
     },
     {
