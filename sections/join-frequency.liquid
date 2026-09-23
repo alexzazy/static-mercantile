@@ -10,13 +10,18 @@
   class="join-frequency mode--{{ section.settings.mode }}{% if section.settings.image == blank %} join-frequency--no-image{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
 >
   {%- if section.settings.show_shapes -%}
-    <div class="decorative-shape decorative-shape--top-left" style="color: rgb(var(--mode-accent-2));">
-      {%- render 'shape-triangle', width: 50, height: 50 -%}
+    {%- comment -%}
+      The comp pairs the triangle with the section's primary accent (pink in
+      Broadcast) and the zigzag with the secondary accent (yellow) -- the
+      opposite pairing from what was here before.
+    {%- endcomment -%}
+    <div class="decorative-shape decorative-shape--top-left" style="color: rgb(var(--mode-accent));">
+      {%- render 'shape-triangle', width: 50, height: 50, filled: true -%}
     </div>
-    <div class="decorative-shape decorative-shape--top-right" style="color: rgb(var(--mode-accent));">
+    <div class="decorative-shape decorative-shape--top-right" style="color: rgb(var(--mode-accent-2));">
       {%- render 'shape-zigzag', width: 80, height: 14 -%}
     </div>
-    <div class="decorative-shape decorative-shape--bottom-right" style="color: rgb(var(--mode-accent-2));">
+    <div class="decorative-shape decorative-shape--bottom-right join-frequency__grid-shape" style="color: rgb(var(--mode-fg));">
       {%- render 'shape-grid', width: 44, height: 44 -%}
     </div>
   {%- endif -%}

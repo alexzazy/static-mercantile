@@ -23,7 +23,15 @@
 
   <div class="collection-showcase__inner page-width">
     <div class="collection-showcase__text">
-      {%- render 'collection-badge', mode: section.settings.mode, label: section.settings.badge_label -%}
+      {%- comment -%}
+        The comp treats the two-tone heading itself as the badge here -- no
+        separate pill. Only render one when a merchant deliberately sets an
+        override; collection-badge's own mode-default fallback text would
+        otherwise appear even with this setting left blank.
+      {%- endcomment -%}
+      {%- if section.settings.badge_label != blank -%}
+        {%- render 'collection-badge', mode: section.settings.mode, label: section.settings.badge_label -%}
+      {%- endif -%}
 
       {%- if section.settings.title != blank -%}
         <h2 class="collection-showcase__title font-display">{{ section.settings.title }}</h2>

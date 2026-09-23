@@ -13,6 +13,7 @@
     <div class="journal-row__header">
       {%- if section.settings.heading != blank -%}
         <h2 class="journal-row__heading font-display">{{ section.settings.heading }}</h2>
+        <span class="journal-row__rule" aria-hidden="true"></span>
       {%- endif -%}
       {%- liquid
         comment
@@ -59,7 +60,16 @@
                 {%- endif -%}
               </div>
               {%- if category != blank -%}
-                <span class="journal-row__category font-eyebrow" style="color: rgb(var(--mode-accent));">
+                {%- comment -%}
+                  Alternate the eyebrow between the mode's two accent colors
+                  (comp shows the category label varying card to card rather
+                  than repeating a single accent down the row).
+                {%- endcomment -%}
+                {%- assign category_accent = 'accent' -%}
+                {%- if forloop.index0 | modulo: 2 == 1 -%}
+                  {%- assign category_accent = 'accent-2' -%}
+                {%- endif -%}
+                <span class="journal-row__category font-eyebrow" style="color: rgb(var(--mode-{{ category_accent }}));">
                   {{- category -}}
                 </span>
               {%- endif -%}
@@ -77,7 +87,11 @@
               <div class="journal-row__media">
                 {{ placeholder_image | placeholder_svg_tag: 'journal-row__image placeholder-svg' }}
               </div>
-              <span class="journal-row__category font-eyebrow" style="color: rgb(var(--mode-accent));">Journal</span>
+              {%- assign category_accent = 'accent' -%}
+              {%- if forloop.index0 | modulo: 2 == 1 -%}
+                {%- assign category_accent = 'accent-2' -%}
+              {%- endif -%}
+              <span class="journal-row__category font-eyebrow" style="color: rgb(var(--mode-{{ category_accent }}));">Journal</span>
               <h3 class="journal-row__title">Coming soon from the journal</h3>
               <span class="journal-row__read-more">Read More &rarr;</span>
             </div>

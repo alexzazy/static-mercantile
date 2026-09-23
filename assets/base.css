@@ -3813,6 +3813,12 @@ details-disclosure > details {
   }
 }
 
+/* Static Mercantile homepage sections: card and feature media (product tiles,
+   category tiles, journal cards, the static-roast/brand-story photo panels)
+   render with square corners throughout -- the design comp keeps every edge
+   crisp, no soft rounding -- so none of the rules below set a border-radius
+   on an image or media container. */
+
 /* Broadcast hero */
 .broadcast-hero {
   position: relative;
@@ -3900,6 +3906,9 @@ details-disclosure > details {
   border-radius: 999px;
   background: rgb(var(--mode-accent));
   color: rgb(var(--mode-fg));
+  /* A small sticker-like tilt instead of a flat pill, matching the comp's
+     hand-applied badge look. */
+  transform: rotate(-2deg);
 }
 
 .broadcast-hero__heading {
@@ -4167,7 +4176,7 @@ signal-bar {
 }
 
 .collection-showcase.mode--heritage {
-  padding-block: 8rem;
+  padding-block: 6rem;
 }
 
 .collection-showcase.mode--broadcast {
@@ -4239,7 +4248,6 @@ signal-bar {
 .collection-showcase__card-media {
   aspect-ratio: 1 / 1;
   overflow: hidden;
-  border-radius: 0.4rem;
   background: rgb(var(--mode-surface));
 }
 
@@ -4306,7 +4314,7 @@ signal-bar {
 
 /* Static Roast (sections/static-roast.liquid) */
 .static-roast {
-  padding-block: 7rem;
+  padding-block: 6rem;
   background: rgb(var(--mode-bg));
   color: rgb(var(--mode-fg));
 }
@@ -4325,7 +4333,6 @@ signal-bar {
   position: relative;
   flex: 1 1 50%;
   overflow: hidden;
-  border-radius: 0.6rem;
 }
 
 .static-roast__image,
@@ -4373,10 +4380,12 @@ signal-bar {
   margin: 0;
 }
 
+/* The comp stacks these two CTAs rather than running them side by side. */
 .static-roast__buttons {
   display: flex;
-  flex-wrap: wrap;
-  gap: 1.4rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.2rem;
 }
 
 @media screen and (max-width: 749px) {
@@ -4419,7 +4428,7 @@ signal-bar {
      the section. */
   position: relative;
   overflow: hidden;
-  padding-block: 7rem;
+  padding-block: 6rem;
   background: rgb(var(--mode-bg));
   color: rgb(var(--mode-fg));
 }
@@ -4437,7 +4446,6 @@ signal-bar {
 .brand-story__media {
   flex: 1 1 50%;
   overflow: hidden;
-  border-radius: 0.6rem;
 }
 
 .brand-story__image,
@@ -4464,8 +4472,16 @@ signal-bar {
   font-size: clamp(3.6rem, 6vw, 6rem);
 }
 
-.brand-story__heading-line--accent {
+/* The comp colors both headline lines rather than leaving the first as plain
+   ink -- --mode-accent for the first line, --mode-accent-2 for the second,
+   reusing the mode's existing two accent tokens instead of introducing a
+   third color. */
+.brand-story__heading-line {
   color: rgb(var(--mode-accent));
+}
+
+.brand-story__heading-line--accent {
+  color: rgb(var(--mode-accent-2));
 }
 
 .brand-story__squiggle {
@@ -4507,7 +4523,7 @@ signal-bar {
 
 /* Category tiles (sections/category-tiles.liquid) */
 .category-tiles {
-  padding-block: 6rem;
+  padding-block: 5rem;
   background: rgb(var(--mode-bg));
   color: rgb(var(--mode-fg));
 }
@@ -4526,7 +4542,6 @@ signal-bar {
   display: block;
   aspect-ratio: 3 / 4;
   overflow: hidden;
-  border-radius: 0.6rem;
   text-decoration: none;
   transition:
     transform var(--duration-short) ease,
@@ -4685,7 +4700,7 @@ signal-bar {
 
 /* Journal row (sections/journal-row.liquid) */
 .journal-row {
-  padding-block: 6rem;
+  padding-block: 5rem;
   background: rgb(var(--mode-bg));
   color: rgb(var(--mode-fg));
 }
@@ -4698,9 +4713,19 @@ signal-bar {
   margin-bottom: 3rem;
 }
 
+/* The comp treats this as a compact section label, not a full display
+   headline -- a thin rule fills the gap to the button, echoing the divider
+   in the comp. */
 .journal-row__heading {
+  flex: 0 0 auto;
   margin: 0;
-  font-size: clamp(2.8rem, 4vw, 4rem);
+  font-size: clamp(1.9rem, 1.6vw, 2.2rem);
+}
+
+.journal-row__rule {
+  flex: 1 1 auto;
+  height: 1px;
+  background: rgba(var(--mode-fg), 0.25);
 }
 
 .journal-row__grid {
@@ -4723,7 +4748,6 @@ signal-bar {
 .journal-row__media {
   aspect-ratio: 4 / 3;
   overflow: hidden;
-  border-radius: 0.6rem;
 }
 
 .journal-row__image,
@@ -4789,9 +4813,15 @@ signal-bar {
 .join-frequency {
   position: relative;
   overflow: hidden;
-  padding-block: 6rem;
+  padding-block: 5rem;
   background: rgb(var(--mode-bg));
   color: rgb(var(--mode-fg));
+}
+
+/* The comp's grid mesh is a faint texture against the panel, not a bold
+   accent-colored shape like the triangle/zigzag. */
+.join-frequency__grid-shape {
+  opacity: 0.35;
 }
 
 .join-frequency__inner {
